@@ -1,0 +1,86 @@
+# Security - NEVER commit sensitive data
+.credentials.json
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.key
+*.pem
+*.cert
+*.crt
+*_rsa
+*_rsa.pub
+.aws/
+.ssh/
+
+# Clawdbot credentials directory
+.clawdbot/credentials/
+**/.clawdbot/credentials/
+
+# Business documents and analysis - NEVER commit
+businesses/
+*pricing*.md
+*pricing*.xlsx
+*pricing*.docx
+*analysis*.md
+*competitive*.md
+*strategy*.md
+COMPLETION-SUMMARY.md
+TASK-COMPLETION-REPORT.md
+EXECUTIVE-SUMMARY.md
+context.md
+
+# Allow only specific website assets if needed (uncomment if required)
+# !businesses/**/assets/creatives/**/*.jpg
+# !businesses/**/assets/creatives/**/*.png
+# !businesses/**/assets/creatives/**/*.svg
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# Next.js
+.next/
+out/
+build/
+dist/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+.DS_Store
+*.log
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Allow website assets
+!public/**
+!assets/**/*.jpg
+!assets/**/*.png
+!assets/**/*.svg
+!assets/**/*.webp
