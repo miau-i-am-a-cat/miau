@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "skills": {
+    "marketing-skills": {
+      "version": "0.1.2",
+      "installedAt": 1769636980299
+    },
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1769636991892
+    },
+    "frontend-design": {
+      "version": "1.0.0",
+      "installedAt": 1769636992813
+    },
+    "brave-search": {
+      "version": "1.0.1",
+      "installedAt": 1769636994241
+    }
+  }
+}
