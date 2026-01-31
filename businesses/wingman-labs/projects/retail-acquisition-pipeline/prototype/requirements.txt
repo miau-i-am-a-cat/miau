@@ -1,0 +1,19 @@
+# Wingman Labs Retail Acquisition Pipeline
+# Python Dependencies
+
+# Core
+requests>=2.31.0
+anthropic>=0.18.0
+
+# Data processing
+pandas>=2.0.0
+
+# Optional: Database
+# psycopg2-binary>=2.9.9
+# sqlalchemy>=2.0.0
+
+# Optional: Additional enrichment
+# apollo-io>=0.1.0
+
+# Development
+python-dotenv>=1.0.0
