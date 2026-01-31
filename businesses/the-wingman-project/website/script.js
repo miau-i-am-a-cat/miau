@@ -2,22 +2,6 @@
 // THE WINGMAN PROJECT - Interactive Elements
 // ============================================
 
-// Custom Cursor
-const cursor = document.getElementById('cursor');
-const cursorFollower = document.getElementById('cursorFollower');
-
-if (cursor && cursorFollower && window.matchMedia('(hover: hover)').matches) {
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-        
-        setTimeout(() => {
-            cursorFollower.style.left = e.clientX + 'px';
-            cursorFollower.style.top = e.clientY + 'px';
-        }, 50);
-    });
-}
-
 // Navigation Scroll Effect
 const nav = document.querySelector('.main-nav');
 let lastScroll = 0;

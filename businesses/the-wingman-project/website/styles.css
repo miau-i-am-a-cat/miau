@@ -91,52 +91,6 @@ button {
 }
 
 /* ============================================
-   Custom Cursor
-   ============================================ */
-
-.cursor, .cursor-follower {
-    display: none;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .cursor {
-        display: block;
-        width: 8px;
-        height: 8px;
-        background: var(--accent);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 10000;
-        transform: translate(-50%, -50%);
-        mix-blend-mode: difference;
-    }
-    
-    .cursor-follower {
-        display: block;
-        width: 40px;
-        height: 40px;
-        border: 1px solid var(--accent);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.15s var(--ease-out), 
-                    width 0.3s var(--ease-out), 
-                    height 0.3s var(--ease-out),
-                    opacity 0.3s var(--ease-out);
-    }
-    
-    body:has(a:hover) .cursor-follower,
-    body:has(button:hover) .cursor-follower {
-        width: 60px;
-        height: 60px;
-        opacity: 0.5;
-    }
-}
-
-/* ============================================
    Navigation
    ============================================ */
 
