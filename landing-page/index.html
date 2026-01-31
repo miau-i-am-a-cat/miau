@@ -2,219 +2,360 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wingman Labs Energy - 5 Minute Focus</title>
-    <meta name="description" content="Energy in 5 minutes. Zero calories. Zero crashes. Get focused faster than coffee.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Wingman Energy | 5-Minute Onset</title>
+    <meta name="description" content="Pharmaceutical-grade energy strips that work in 5-10 minutes. Oral-mucosal absorption bypasses digestion for faster, cleaner energy.">
     <link rel="stylesheet" href="styles.css">
-    <!-- Optimized fonts for fast loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Hero Section - Immediate Value Prop -->
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <div class="brand-badge">WINGMAN LABS</div>
+        <div class="container">
+            <div class="brand-mark">WINGMAN LABS</div>
             
             <h1 class="hero-title">
-                <span class="title-main">ENERGY</span>
-                <span class="title-sub">in 5 minutes</span>
+                Energy in<br>
+                <span class="highlight">5 Minutes</span>
             </h1>
             
-            <div class="hero-features">
-                <div class="feature-badge">⚡ 50mg Caffeine</div>
-                <div class="feature-badge">🧘 L-Theanine</div>
-                <div class="feature-badge">✨ 0 Calories</div>
+            <p class="hero-sub">
+                Pharmaceutical-grade strips that work faster than coffee, drinks, or pills.
+            </p>
+            
+            <div class="hero-image-wrapper">
+                <img src="images/product-hero.jpg" alt="Wingman Energy Strips" class="hero-image">
             </div>
             
-            <div class="hero-image">
-                <img src="images/hero-energy.jpg" alt="Wingman Labs Energy Strips" loading="eager">
+            <div class="quick-facts">
+                <div class="fact">
+                    <strong>50mg</strong>
+                    <span>Caffeine + L-Theanine</span>
+                </div>
+                <div class="fact">
+                    <strong>0</strong>
+                    <span>Calories or Sugar</span>
+                </div>
+                <div class="fact">
+                    <strong>$0.77</strong>
+                    <span>Per Strip</span>
+                </div>
             </div>
-            
-            <div class="price-section">
-                <span class="price">$22.99</span>
-                <span class="price-detail">30 strips</span>
-            </div>
-            
-            <a href="#buy" class="cta-primary">
-                Buy Now in Store
-                <span class="cta-arrow">→</span>
-            </a>
-            
-            <p class="trust-line">Already at checkout? Scan & save your spot.</p>
         </div>
     </section>
 
-    <!-- Speed Comparison - Key Differentiator -->
+    <!-- The Science Section -->
+    <section class="science-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">HOW IT WORKS</span>
+                <h2>Why Strips Work Faster</h2>
+            </div>
+            
+            <div class="absorption-diagram">
+                <div class="absorption-route">
+                    <div class="route-icon"></div>
+                    <div class="route-label">Wingman Strips</div>
+                    <div class="route-detail">Oral-mucosal absorption</div>
+                    <div class="route-time">5-10 min</div>
+                </div>
+                
+                <div class="comparison-vs">vs</div>
+                
+                <div class="absorption-route slow">
+                    <div class="route-icon"></div>
+                    <div class="route-label">Traditional Methods</div>
+                    <div class="route-detail">Digestive system (85% lost)</div>
+                    <div class="route-time">20-45 min</div>
+                </div>
+            </div>
+            
+            <div class="science-explainer">
+                <p>
+                    <strong>Most supplements lose 85% of their effectiveness through digestion.</strong>
+                    Your stomach acid, intestines, and liver destroy most active ingredients before they reach your bloodstream.
+                </p>
+                <p>
+                    Wingman strips dissolve in 30 seconds and absorb directly through your mouth tissue—the same delivery system hospitals use for fast-acting medications.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Details -->
+    <section class="details-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">WHAT'S INSIDE</span>
+                <h2>Precise Dosing, Clean Ingredients</h2>
+            </div>
+            
+            <div class="ingredients-grid">
+                <div class="ingredient-card">
+                    <div class="ingredient-amount">50mg</div>
+                    <div class="ingredient-name">Caffeine</div>
+                    <div class="ingredient-desc">Natural caffeine for clean energy without jitters</div>
+                </div>
+                
+                <div class="ingredient-card">
+                    <div class="ingredient-amount">100mg</div>
+                    <div class="ingredient-name">L-Theanine</div>
+                    <div class="ingredient-desc">Balances caffeine for smooth, sustained focus</div>
+                </div>
+                
+                <div class="ingredient-card">
+                    <div class="ingredient-amount">100%</div>
+                    <div class="ingredient-name">B-Vitamins</div>
+                    <div class="ingredient-desc">B6 + B12 for cellular energy production</div>
+                </div>
+            </div>
+            
+            <div class="certifications">
+                <div class="cert-badge">FDA-Registered Facility</div>
+                <div class="cert-badge">GMP Certified</div>
+                <div class="cert-badge">Third-Party Tested</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
     <section class="comparison-section">
-        <h2 class="section-title">Faster Than Everything</h2>
-        
-        <div class="comparison-grid">
-            <div class="comparison-item winner">
-                <div class="comp-icon">⚡</div>
-                <div class="comp-name">Wingman Strips</div>
-                <div class="comp-time time-winner">5 min</div>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">THE DIFFERENCE</span>
+                <h2>Faster Than Everything</h2>
             </div>
             
-            <div class="comparison-item">
-                <div class="comp-icon">☕</div>
-                <div class="comp-name">Coffee</div>
-                <div class="comp-time">10-15 min</div>
-            </div>
-            
-            <div class="comparison-item">
-                <div class="comp-icon">🥤</div>
-                <div class="comp-name">Energy Drinks</div>
-                <div class="comp-time">10-20 min</div>
-            </div>
-            
-            <div class="comparison-item">
-                <div class="comp-icon">💊</div>
-                <div class="comp-name">Pills</div>
-                <div class="comp-time">20-30 min</div>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th class="highlight-col">Wingman</th>
+                            <th>Coffee</th>
+                            <th>Energy Drinks</th>
+                            <th>Pills</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Onset Time</td>
+                            <td class="highlight-col"><strong>5-10 min</strong></td>
+                            <td>10-15 min</td>
+                            <td>10-20 min</td>
+                            <td>20-30 min</td>
+                        </tr>
+                        <tr>
+                            <td>Calories</td>
+                            <td class="highlight-col"><strong>0</strong></td>
+                            <td>5-100</td>
+                            <td>140-300</td>
+                            <td>0</td>
+                        </tr>
+                        <tr>
+                            <td>Sugar</td>
+                            <td class="highlight-col"><strong>0g</strong></td>
+                            <td>0-20g</td>
+                            <td>30-60g</td>
+                            <td>0g</td>
+                        </tr>
+                        <tr>
+                            <td>Water Needed</td>
+                            <td class="highlight-col"><strong>No</strong></td>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>TSA-Approved</td>
+                            <td class="highlight-col"><strong>Yes</strong></td>
+                            <td>Beans only</td>
+                            <td>No (liquid)</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <td>Cost Per Serving</td>
+                            <td class="highlight-col"><strong>$0.77</strong></td>
+                            <td>$2-5</td>
+                            <td>$3-5</td>
+                            <td>$0.10-0.50</td>
+                        </tr>
+                        <tr>
+                            <td>Bioavailability</td>
+                            <td class="highlight-col"><strong>High</strong></td>
+                            <td>Medium</td>
+                            <td>Medium</td>
+                            <td>Low (15%)</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-        
-        <p class="comparison-note">
-            Our oral-mucosal delivery bypasses digestion, delivering energy directly to your bloodstream.
-        </p>
     </section>
 
-    <!-- How It Works -->
-    <section class="how-it-works">
-        <h2 class="section-title">How It Works</h2>
-        
-        <div class="steps">
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-content">
-                    <h3>Place on tongue</h3>
-                    <p>Strip dissolves in 30 seconds</p>
+    <!-- Use Cases -->
+    <section class="use-cases-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">WHEN TO USE</span>
+                <h2>Perfect Moments for Fast Energy</h2>
+            </div>
+            
+            <div class="use-cases-grid">
+                <div class="use-case-card">
+                    <div class="use-case-time">06:00 AM</div>
+                    <h3>Morning Kickstart</h3>
+                    <p>Faster than waiting in line at the coffee shop. Dissolves in 30 seconds, works in 5 minutes.</p>
                 </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-content">
-                    <h3>Direct absorption</h3>
-                    <p>Bypasses digestion</p>
+                
+                <div class="use-case-card">
+                    <div class="use-case-time">02:30 PM</div>
+                    <h3>Afternoon Slump</h3>
+                    <p>Beat the 3pm crash without the sugar and calories of energy drinks.</p>
                 </div>
-            </div>
-            
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-content">
-                    <h3>Feel energized</h3>
-                    <p>Focus kicks in at 5 min</p>
+                
+                <div class="use-case-card">
+                    <div class="use-case-time">05:45 AM</div>
+                    <h3>Pre-Workout</h3>
+                    <p>Zero calories, perfect timing. Take it in the parking lot, ready by your first set.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Wingman -->
-    <section class="benefits-section">
-        <h2 class="section-title">Why Choose Wingman?</h2>
-        
-        <div class="benefits-grid">
-            <div class="benefit-card">
-                <div class="benefit-icon">⚡</div>
-                <h3>5-Minute Onset</h3>
-                <p>Faster than coffee, energy drinks, or pills</p>
-            </div>
-            
-            <div class="benefit-card">
-                <div class="benefit-icon">🎯</div>
-                <h3>Zero Crashes</h3>
-                <p>L-theanine balances caffeine for smooth energy</p>
-            </div>
-            
-            <div class="benefit-card">
-                <div class="benefit-icon">🚫</div>
-                <h3>Zero Calories</h3>
-                <p>Unlike energy drinks with 140-300 calories</p>
-            </div>
-            
-            <div class="benefit-card">
-                <div class="benefit-icon">✈️</div>
-                <h3>TSA-Approved</h3>
-                <p>No water needed, pocket-sized convenience</p>
-            </div>
-            
-            <div class="benefit-card">
-                <div class="benefit-icon">🔬</div>
-                <h3>Pharmaceutical Grade</h3>
-                <p>FDA-registered, GMP-certified, third-party tested</p>
-            </div>
-            
-            <div class="benefit-card">
-                <div class="benefit-icon">💰</div>
-                <h3>Better Value</h3>
-                <p>$0.77/strip vs $2-5 for coffee</p>
+                
+                <div class="use-case-card">
+                    <div class="use-case-time">11:00 AM</div>
+                    <h3>Before Meetings</h3>
+                    <p>Sharp focus without the bathroom trips. Discreet, fast, reliable.</p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Social Proof -->
     <section class="reviews-section">
-        <h2 class="section-title">Real People, Real Results</h2>
-        
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <p class="review-text">"Game changer for my morning meetings. No more coffee shop lines."</p>
-                <p class="review-author">— Sarah K., Product Manager</p>
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">REAL USERS</span>
+                <h2>What People Say</h2>
             </div>
             
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <p class="review-text">"Actually works in 5 minutes. I was skeptical but wow."</p>
-                <p class="review-author">— Mike R., Software Engineer</p>
-            </div>
-            
-            <div class="review-card">
-                <div class="review-stars">⭐⭐⭐⭐⭐</div>
-                <p class="review-text">"Perfect for travel. TSA-friendly and takes up zero space."</p>
-                <p class="review-author">— Alex T., Consultant</p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-rating">★★★★★</div>
+                    <p class="review-text">"Actually works in 5 minutes. I timed it. Game changer for morning meetings."</p>
+                    <div class="review-author">
+                        <strong>Alex M.</strong>
+                        <span>Product Manager</span>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-rating">★★★★★</div>
+                    <p class="review-text">"Travels better than anything else. TSA-friendly, no spills, no melting. Perfect."</p>
+                    <div class="review-author">
+                        <strong>Jordan K.</strong>
+                        <span>Consultant, 100+ flights/year</span>
+                    </div>
+                </div>
+                
+                <div class="review-card">
+                    <div class="review-rating">★★★★★</div>
+                    <p class="review-text">"Zero calories and zero crash. Finally an energy solution that doesn't break my fast."</p>
+                    <div class="review-author">
+                        <strong>Sam R.</strong>
+                        <span>Fitness Coach</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Final CTA -->
-    <section class="final-cta">
-        <div class="cta-content">
-            <h2>Ready to Level Up?</h2>
-            <p class="cta-subtitle">Grab your box at checkout today</p>
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">QUESTIONS</span>
+                <h2>What You Asked</h2>
+            </div>
             
-            <a href="#buy" class="cta-primary cta-large">
-                Buy Now
-                <span class="cta-arrow">→</span>
-            </a>
-            
-            <div class="guarantee">
-                <span class="guarantee-badge">✓</span>
-                <span>30-day money-back guarantee</span>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <div class="faq-question">How many strips can I take per day?</div>
+                    <div class="faq-answer">
+                        Take up to 2 strips daily, at least 4 hours apart. Don't take within 6 hours of sleep. Start with one strip to assess your tolerance.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Is 50mg of caffeine enough?</div>
+                    <div class="faq-answer">
+                        Higher bioavailability means less is more. 50mg through oral-mucosal absorption feels stronger than 100mg through digestion (which loses 85% effectiveness). Plus, L-theanine amplifies the effect.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What does it taste like?</div>
+                    <div class="faq-answer">
+                        Dark roast coffee flavor. No milk, no sugar. Dissolves completely in 30 seconds.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">Will TSA actually let me through?</div>
+                    <div class="faq-answer">
+                        Yes. Strips are solid supplements (not liquids), individually sealed, and clearly labeled. TSA-approved format.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">How is this different from energy drinks?</div>
+                    <div class="faq-answer">
+                        Zero calories vs 140-300. Zero sugar vs 30-60g. Faster onset (5-10 min vs 10-20 min). Higher bioavailability. No refrigeration needed.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Try It?</h2>
+                <p class="cta-subtitle">You're already here at the store. Pick up a box at checkout.</p>
+                
+                <div class="cta-buttons">
+                    <a href="https://thewingmanlabs.com" class="btn btn-primary">Visit Website for More</a>
+                    <a href="https://thewingmanlabs.com/science" class="btn btn-secondary">Read the Science</a>
+                </div>
+                
+                <div class="online-offer">
+                    <p><strong>Prefer to order online?</strong></p>
+                    <p>Visit thewingmanlabs.com and save 20% on your first order with code <strong>INSTORE20</strong></p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
+        <div class="container">
             <div class="footer-brand">
                 <strong>WINGMAN LABS</strong>
-                <p>Clean energy. Zero crashes.</p>
+                <p>Pharmaceutical-grade supplements that actually work.</p>
             </div>
             
             <div class="footer-links">
-                <a href="https://thewingmanlabs.com">Visit Website</a>
-                <a href="https://thewingmanlabs.com/science">The Science</a>
+                <a href="https://thewingmanlabs.com">Website</a>
+                <a href="https://thewingmanlabs.com/science">Science</a>
                 <a href="https://thewingmanlabs.com/faq">FAQ</a>
+                <a href="mailto:team@thewingmanlabs.com">Contact</a>
             </div>
             
-            <p class="footer-legal">
-                FDA-registered facility | GMP-certified | Third-party tested
-            </p>
+            <div class="footer-legal">
+                <p>FDA-registered facility | GMP-certified | Third-party tested</p>
+                <p class="disclaimer">These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure, or prevent any disease.</p>
+            </div>
         </div>
     </footer>
 
