@@ -61,12 +61,39 @@ Things like:
 ### API Credentials
 Stored in `.credentials.json` under `fal.api_key`
 
-### Usage
-```bash
-# Set environment variable
-export FAL_KEY=$(jq -r '.fal.api_key' .credentials.json)
+### Standard Workflow: Ads & Product Images
 
-# Use fal CLI or API directly
+**Always use edit mode with reference image:**
+
+```python
+import fal_client
+
+# 1. Upload reference image
+ref_url = fal_client.upload_file("path/to/product.png")
+
+# 2. Generate/edit with reference preserved
+result = fal_client.subscribe(
+    "fal-ai/nano-banana-pro/edit",
+    arguments={
+        "prompt": "Add bold headline 'YOUR TEXT' at top. Change X to Y. Keep product exactly as shown.",
+        "image_urls": [ref_url],
+    }
+)
+
+# 3. Download result
+img_url = result['images'][0]['url']
+```
+
+**Key points:**
+- **Endpoint:** `fal-ai/nano-banana-pro/edit` (or `nano-banana/edit`)
+- **Param:** `image_urls` (list) — pass reference image
+- **Prompt:** Describe changes; tell it what to keep unchanged
+- Edit mode preserves original image, applies targeted changes
+- Works for: adding text, color changes, background edits, etc.
+
+### Environment Setup
+```bash
+export FAL_KEY=$(jq -r '.fal.api_key' .credentials.json)
 ```
 
 ---
