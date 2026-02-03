@@ -110,6 +110,32 @@ export FAL_KEY=$(jq -r '.fal.api_key' .credentials.json)
 ### API Credentials
 Stored in `.credentials.json` (kept for legacy reference)
 
+## GitHub & Vercel Publishing
+
+**Setup (run once per session if gh not authenticated):**
+```bash
+echo $(jq -r '.github.token' .credentials.json) | gh auth login --with-token
+```
+
+**Account:** `miau-i-am-a-cat`
+**Main repo:** `miau-i-am-a-cat/miau` — connected to Vercel, auto-deploys on push
+
+**To publish a page:**
+1. Clone/pull the repo
+2. Add your files
+3. Commit and push
+4. Vercel auto-deploys within ~30 seconds
+
+**To create a new repo:**
+```bash
+gh repo create miau-i-am-a-cat/NEW-REPO-NAME --public --clone
+```
+New repos can be connected to Vercel via Vercel dashboard (GitHub integration is already linked).
+
+**Git identity:** `miau <miau-i-am-a-cat@users.noreply.github.com>` — do NOT change this.
+
+---
+
 ## Why Separate?
 
 Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.

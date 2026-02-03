@@ -1,0 +1,575 @@
+GitHub: Token stored in .credentials.json under github.token. Auth gh CLI with: echo $(jq -r '.github.token' .credentials.json) | gh auth login --with-token. Pushing to the connected repo auto-deploys to Vercel.
+
+
+# E-Commerce Frontend Design Skill
+
+## Philosophy
+
+**Every store is a standalone piece of design.** Not a template with content swapped in. Not "what tile stores look like." A tile store in Miami selling to contractors is a completely different design problem than a tile store in Brooklyn selling to homeowners doing their first renovation. Same product category, different everything.
+
+**Design serves commerce, but commerce looks different everywhere.** A streetwear drop needs manufactured scarcity. A luxury watch needs infinite patience. A supplement brand needs scientific credibility. A B2B supplier needs spec sheets and bulk pricing. The skill is understanding WHICH levers exist and having the judgment to know WHEN each one applies.
+
+**Context is granular.** "Fashion" is not a context. "Scandinavian minimalist womenswear for professional women in their 30s who value quality over trends, price point $200-800, competing against COS and Arket" is a context. Every design decision flows from understanding at this level of specificity.
+
+**The goal is that each store could only be for that specific business.** Someone should look at the site and think "of course this is how they'd do it." If you could swap in a competitor's logo and products without changing anything else, you've failed.
+
+---
+
+## Context Discovery
+
+Before designing anything, develop a deep understanding of THIS specific business. Not the industry. This business.
+
+### Business Identity
+
+```
+What does this company actually believe?
+
+Not their mission statement. What do they actually care about?
+- Are they obsessed with quality? Speed? Price? Service? Design?
+- What would they never compromise on?
+- What makes them angry about their industry?
+- Why did they start this business?
+
+What's their personality?
+- How would they talk to a customer in person?
+- What brands do they admire (even outside their industry)?
+- What brands do they hate?
+- Are they serious or playful? Formal or casual? Expert or accessible?
+
+What's their position in the market?
+- Are they the established leader or the hungry challenger?
+- Are they premium or value? Mass or niche?
+- Who do they compete with directly?
+- What do they do that competitors don't?
+```
+
+### Customer Understanding
+
+```
+Who is the actual buyer?
+
+Demographics are the start, not the answer:
+- Age, income, location, profession
+- But also: What do they already know? What are they afraid of?
+- What are they really buying? (Often not the product itself)
+
+What's their purchase journey?
+- How did they find this product? (Search, social, referral, ad?)
+- Where are they in the decision process? (Browsing, comparing, ready to buy?)
+- What questions do they need answered?
+- What objections do they have?
+- Who else influences the decision?
+
+What's the purchase feel like to them?
+- Is this exciting or stressful?
+- Is this a treat or a chore?
+- Are they confident or uncertain?
+- Do they want to linger or get it done?
+```
+
+### Product Reality
+
+```
+What is this product actually?
+
+Complexity:
+- Can someone understand it in 5 seconds, or does it need explanation?
+- Are there variants, configurations, options?
+- Does it require accessories or complementary products?
+- Is installation/assembly/setup part of the product?
+
+Tangibility:
+- Can someone evaluate quality from photos?
+- Does it need to be experienced? (Texture, fit, sound, taste)
+- Are samples/trials possible or necessary?
+- What can't be communicated online?
+
+Stakes:
+- How much does it cost?
+- How permanent is the decision? (Paint color vs. tattoo)
+- What happens if they choose wrong?
+- How hard is it to return or exchange?
+```
+
+### Transaction Dynamics
+
+```
+How does money actually change hands?
+
+Pricing structure:
+- Simple (one price) or complex (variants, tiers, bulk)?
+- One-time or recurring?
+- Are there add-ons, services, warranties?
+- How does this compare to alternatives?
+
+Purchase frequency:
+- One-time (mattress), occasional (furniture), regular (supplements)?
+- Does this lead to other purchases?
+- Is there a relationship after the sale?
+
+Barriers:
+- What stops someone from buying right now?
+- Price? Uncertainty? Need to measure something? Need approval?
+- What could reduce those barriers?
+```
+
+---
+
+## Design Principles
+
+These are thinking tools, not rules. Apply them through the lens of context.
+
+### Principle 1: Hierarchy Is Meaning
+
+Every page makes an argument about what matters. The visual hierarchy is that argument.
+
+```
+If the product is the hero:
+→ Image dominates. Everything else is secondary.
+
+If the deal is the hero:
+→ Price and savings prominent. Value is the story.
+
+If trust is the hero:
+→ Proof leads. Reviews, credentials, guarantees visible first.
+
+If the brand is the hero:
+→ Aesthetic and experience dominate. Commerce is quiet.
+```
+
+**The question is not "where do things go" but "what matters most to THIS customer buying THIS product from THIS brand."**
+
+### Principle 2: Friction Is Not Always Bad
+
+Some friction is intentional.
+
+```
+REMOVE friction when:
+- Customer is certain and ready to buy
+- The purchase is routine or repeat
+- Speed is part of the value proposition
+- Friction serves no purpose
+
+KEEP friction when:
+- The purchase needs consideration (prevents returns, regret)
+- Friction is part of the experience (luxury, exclusivity)
+- Friction qualifies the buyer (B2B, professional)
+- Friction creates anticipation (drops, limited editions)
+```
+
+### Principle 3: Trust Is Specific
+
+"Trust badges" are not trust. Trust is answering the actual worries of the actual customer.
+
+```
+The contractor worries about:
+→ Will this arrive on time? Will it match what I ordered? 
+→ Can I get enough? What if I need more later?
+
+The first-time homeowner worries about:
+→ Am I choosing the right thing? Will I regret this?
+→ Is this hard to install? What if I screw it up?
+
+The luxury buyer worries about:
+→ Is this authentic? Is this brand actually prestigious?
+→ Will this make me feel the way I want to feel?
+
+The business buyer worries about:
+→ Can I justify this purchase? Will it perform?
+→ What happens if there's a problem? Who's accountable?
+```
+
+**Don't add generic trust signals. Answer specific fears.**
+
+### Principle 4: Information Architecture Serves Decision-Making
+
+Not all information is equal. Organize by usefulness, not completeness.
+
+```
+ESSENTIAL: Needed to make the purchase decision
+→ Always visible or one click away
+→ Examples: price, availability, key specs, primary images
+
+SUPPORTING: Helpful but not required
+→ Accessible but not in the way
+→ Examples: full specifications, detailed reviews, care instructions
+
+REFERENCE: For specific situations
+→ Available but buried
+→ Examples: technical documentation, legal terms, detailed policies
+```
+
+**The density should match the buyer's needs, not your desire to be thorough.**
+
+### Principle 5: Commerce Mechanics Are Tools, Not Checkboxes
+
+Every commercial feature should have a reason for THIS context.
+
+```
+Upsells work when:
+→ The additional item genuinely completes the purchase
+→ The customer would need it anyway
+→ The bundle creates real value (not just more revenue)
+
+Upsells fail when:
+→ They feel desperate or extractive
+→ The customer hasn't committed to the primary purchase
+→ The brand positioning doesn't support hard selling
+
+Ask: "Does this help the customer or just the business?"
+Sometimes the answer is "just the business," and that's a choice.
+But know you're making it.
+```
+
+### Principle 6: Mobile Is A Different Problem
+
+Mobile is not "desktop but smaller." Different context, different needs, different design.
+
+```
+Mobile users often:
+- Have partial attention
+- Are earlier in the journey (research, not buying)
+- Need core information fast
+- Will return on desktop to complete purchase
+- Or will complete on mobile and need easy path
+
+Mobile design questions:
+- What's the ONE thing they need to see?
+- Can they complete the action on mobile?
+- What can wait for desktop?
+- Where is the thumb? What's easy to tap?
+```
+
+---
+
+## Commerce Pattern Library
+
+These are tools that exist. Not a checklist. Use what serves the context.
+
+### Product Presentation
+
+**Gallery approaches:**
+
+Single hero — When one image tells the story. Common for simple products, strong photography, brand-forward contexts.
+
+Multi-angle — When the customer needs to see the product from different perspectives. Common for apparel, furniture, anything with physical dimensions.
+
+Context shots — When seeing the product "in use" matters. Common for home goods, lifestyle products, anything where scale or application needs demonstration.
+
+Detail views — When texture, material, or craftsmanship is a selling point. Common for quality-focused products, handmade goods, technical products.
+
+**Video:**
+
+Sometimes a video is worth a thousand images. Sometimes it's annoying autoplay that nobody asked for.
+
+Use video when: demonstration matters, the product has movement/sound, installation/use needs to be shown.
+
+Skip video when: photography suffices, the product is simple, you don't have good video.
+
+### Price Presentation
+
+**How price is displayed signals positioning.**
+
+Price prominent, comparison visible — "We're a great deal. Look at the savings."
+
+Price clear but not shouting — "Fair price for quality product."
+
+Price understated — "If you have to ask, it's not for you. But here it is."
+
+Price on request — "This is a conversation, not a transaction."
+
+**Complex pricing needs clear structure:**
+
+When there are variants, tiers, bulk discounts, or per-unit vs. per-package pricing, make the math obvious. Confusion kills conversions.
+
+### Action Design
+
+**Primary action should be unmistakable.**
+
+But what IS the primary action?
+
+Not always "Add to Cart."
+
+Could be: Request a quote. Book a consultation. Get samples. Start a trial. Join the waitlist.
+
+The primary action is whatever moves this customer to the next appropriate step for this product at this price point.
+
+**Secondary actions matter too:**
+
+Wishlist/save — For considered purchases when they're not ready today.
+
+Share — When social validation or gift hints are relevant.
+
+Notify — When out of stock or launching soon.
+
+Compare — When evaluation against alternatives is part of the process.
+
+### Calculators and Tools
+
+**Only when they genuinely help.**
+
+Coverage calculator — For products sold by area (tile, paint, flooring). Helps customer know what to order, reduces return rate.
+
+Size guide/finder — For products where fit matters (apparel, furniture in space). Reduces "will this fit?" anxiety.
+
+Compatibility checker — For products that must work with other things (parts, accessories, tech). Prevents wrong orders.
+
+Recommendation quiz — When choice is overwhelming or personalization matters. Guides decision, captures data.
+
+Build/configure tool — For products with many options. Makes complexity manageable.
+
+**Every tool should:**
+- Solve a real customer problem
+- Integrate with the purchase flow (calculator result should connect to cart)
+- Not be friction for customers who don't need it
+
+### Upsells and Cross-sells
+
+**Approaches:**
+
+Complete the project — Things they'll need anyway (grout with tile, cases with phones). Genuine convenience.
+
+Upgrade — Better version of what they're buying. Works when the value difference is clear.
+
+Bundle — Pre-configured package. Works when the bundle is genuine value, not manufactured.
+
+Subscribe — For replenishable products. Works when the economics favor customer and frequency makes sense.
+
+Complete the look — For products with styling context. Works when the aesthetic connection is real.
+
+**Warning signs of bad upselling:**
+
+- You're suggesting things they obviously don't need
+- The suggestions feel random or irrelevant
+- The primary purchase isn't secured yet and you're already pushing more
+- The brand positioning doesn't support aggressive commerce
+
+**Some contexts demand no upselling at all.** Premium/luxury positioning often requires invisible commerce. The store should feel like a gallery, not a bazaar.
+
+### Trust Architecture
+
+**Types of trust:**
+
+Social proof — Other people bought this and were happy. Reviews, ratings, user photos, "X people bought this."
+
+Authority — Experts endorse this. Certifications, endorsements, media mentions, professional use.
+
+Transparency — We have nothing to hide. Ingredients, sourcing, manufacturing, pricing breakdown.
+
+Guarantee — We stand behind this. Return policy, warranty, satisfaction promise.
+
+Track record — We've been doing this a long time. Years in business, customers served, projects completed.
+
+Scarcity — This is valuable and limited. Low stock, limited edition, exclusive access.
+
+**Deploy based on what THIS customer worries about:**
+
+Professional buyers worry about reliability and support.
+First-time buyers worry about making mistakes.
+Premium buyers worry about authenticity and status.
+Price-conscious buyers worry about value and getting scammed.
+
+**Generic trust badges are often meaningless.** "Trusted by millions" without specifics. SSL padlock icons (everyone has SSL). Five identical review platform badges.
+
+Specific proof beats generic signals.
+
+### Information Presentation
+
+**Tabs vs. scrolling vs. accordions vs. separate pages:**
+
+Tabs — When there are distinct information types (specs, reviews, docs) and the buyer might only want one.
+
+Long scroll — When the information builds a case and should be consumed in sequence.
+
+Accordions — When sections are optional/secondary and keeping the page compact matters.
+
+Separate pages — When information is dense enough to warrant its own context (detailed docs, legal).
+
+**Specifications:**
+
+Technical products need specs. The question is presentation:
+
+- Table format for quick scanning
+- Grouped by category for complex products
+- Progressive disclosure (summary, then detail) for mixed audiences
+- Downloadable PDF for professional contexts
+
+### Email Capture
+
+**Value exchange must be real:**
+
+Discount for email — Works for price-sensitive contexts. Doesn't work for premium positioning.
+
+Notify me — Useful for out-of-stock or pre-launch. Genuine utility.
+
+Content subscription — Works when the brand has something worth saying. Doesn't work as a growth hack.
+
+**Timing matters:**
+
+Before they've seen the product — Annoying. They don't know if they care yet.
+
+During browsing — Interruptive. Only if the value exchange is strong.
+
+At exit — Desperate. Sometimes works, always feels bad.
+
+Post-purchase — Appropriate. They've expressed interest.
+
+**Some contexts should skip email capture entirely.** Premium positioning often suffers from aggressive list building.
+
+---
+
+## Composition Thinking
+
+Don't follow layouts. Compose pages by answering questions.
+
+### Above the Fold Questions
+
+What must they see immediately?
+
+For some products: The image. Nothing else matters until they see it.
+
+For some products: The price. That's what determines if they keep reading.
+
+For some products: The core value proposition. Why this, not alternatives?
+
+For some products: Trust. They need to believe before they look.
+
+**The answer changes by context, not by industry.**
+
+### Information Hierarchy Questions
+
+What do they need to know to buy?
+
+List everything. Then rank it. Then design the hierarchy to match.
+
+Essential → prominent, always visible.
+Important → accessible, one click away.
+Supporting → available, but buried.
+Reference → findable if needed.
+
+**Don't give everything equal weight. Decisions require hierarchy.**
+
+### Action Flow Questions
+
+What's the path from interest to purchase?
+
+Simple: See it → want it → buy it.
+
+Configured: See it → select options → buy it.
+
+Calculated: See it → figure out how much → buy it.
+
+Considered: See it → research → leave → return → buy it.
+
+Staged: See it → request information → consultation → buy it.
+
+**Design the infrastructure for the actual path, not an idealized one.**
+
+### Trust Placement Questions
+
+What do they need to believe, and when?
+
+Early objections need early answers.
+
+If they won't scroll without believing it's legitimate, trust signals go above the fold.
+
+If they need to see the product first, trust comes after.
+
+If trust is implicit in the brand, maybe it doesn't need to be stated at all.
+
+### Commercial Pressure Questions
+
+How hard should the page sell?
+
+Depends on:
+- Brand positioning (premium = soft, value = hard)
+- Purchase psychology (impulse = push, considered = guide)
+- Relationship intent (transactional = maximize, community = nurture)
+- Competitive context (leader = confident, challenger = hungry)
+
+**There's no right answer. There's the right answer for this context.**
+
+---
+
+## Quality Standards
+
+### Brand Alignment
+
+Does this feel like THIS brand?
+
+- Could you put a competitor's products in this design without changing anything? (If yes, fail.)
+- Does the visual language match the brand language?
+- Does the commercial approach match the brand positioning?
+- Would someone familiar with the brand recognize it without seeing the logo?
+
+### Commerce Effectiveness
+
+Does this actually work?
+
+- Is the primary action unmistakable?
+- Are barriers to purchase identified and addressed?
+- Is trust architecture appropriate to customer concerns?
+- Do upsells/tools actually help, or just exist?
+- Can the purchase be completed on mobile?
+
+### Information Architecture
+
+Is information organized for decision-making?
+
+- Essential information visible or immediately accessible?
+- Supporting information available without overwhelming?
+- Reference material findable when needed?
+- Hierarchy clear? Nothing competing when it shouldn't be?
+
+### Technical Quality
+
+Does it perform?
+
+- Fast loading (every second costs conversions)
+- Mobile experience is designed, not adapted
+- Accessibility basics covered (contrast, labels, keyboard nav)
+- SEO fundamentals present
+
+### Uniqueness
+
+Is this design doing work?
+
+- At least one thing that's surprising or unexpected
+- Design decisions have reasons, not defaults
+- Couldn't be mistaken for a template
+
+---
+
+## What This Skill Does Not Provide
+
+### No Industry Templates
+
+There is no "tile store template" or "fashion template." Two businesses in the same industry with different positioning, customers, and products need different designs.
+
+### No Default Layouts
+
+There is no "standard product page layout." The layout emerges from understanding what matters for this specific context.
+
+### No Checkbox Features
+
+There is no list of "features every store needs." Each feature is a decision based on whether it serves this context.
+
+### No Assumed Components
+
+Not every store needs: breadcrumbs, thumbnail grids, related products, email popups, trust badges, chat widgets, review sections, countdown timers, or sticky add-to-cart buttons.
+
+Each component exists when there's a reason for it.
+
+---
+
+## The Standard
+
+When evaluating a design, ask:
+
+**"Could this store only be for this specific brand, selling this specific product, to this specific customer?"**
+
+If yes, you've succeeded.
+
+If you could swap in a competitor's brand and products without changing the design, you've built a template.
+
+The goal is not a good e-commerce site. The goal is the only e-commerce site that could exist for this business.

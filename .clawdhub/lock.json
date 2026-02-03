@@ -16,6 +16,14 @@
     "brave-search": {
       "version": "1.0.1",
       "installedAt": 1769636994241
+    },
+    "brand-creative-suite": {
+      "version": "1.0.0",
+      "installedAt": 1770092808770
+    },
+    "brand-guidelines": {
+      "version": "0.1.0",
+      "installedAt": 1770092822879
     }
   }
 }
