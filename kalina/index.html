@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AK-47 Tote | KALINA</title>
+  <meta name="description" content="Full-grain Italian leather. Hand-sculpted relief. Sculpted leather, unapologetic design.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --obsidian: #0A0A0A;
+      --bone: #F5F5F0;
+      --cognac: #8B4513;
+      --gunmetal: #2C3539;
+      --concrete: #95918C;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--obsidian);
+      color: var(--bone);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 25px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(to bottom, var(--obsidian) 60%, transparent);
+    }
+
+    .logo {
+      height: 22px;
+      filter: invert(1);
+    }
+
+    nav a {
+      color: var(--bone);
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0.6;
+      transition: opacity 0.3s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 120px 50px 80px;
+      gap: 60px;
+    }
+
+    .hero-image {
+      position: relative;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    .hero-content {
+      max-width: 500px;
+    }
+
+    .product-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(48px, 8vw, 72px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    .product-description {
+      font-size: 16px;
+      line-height: 1.8;
+      color: rgba(245, 245, 240, 0.7);
+      margin-bottom: 40px;
+      max-width: 420px;
+    }
+
+    .price {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 35px;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 18px 50px;
+      background: var(--bone);
+      color: var(--obsidian);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: all 0.3s;
+    }
+
+    .cta-button:hover {
+      background: white;
+      transform: translateY(-2px);
+    }
+
+    /* Details Section */
+    .details {
+      padding: 120px 50px;
+      border-top: 1px solid rgba(245, 245, 240, 0.1);
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 60px;
+      max-width: 1200px;
+    }
+
+    .detail-item {
+      padding-left: 20px;
+      border-left: 2px solid var(--cognac);
+    }
+
+    .detail-title {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-bottom: 15px;
+    }
+
+    .detail-text {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(245, 245, 240, 0.8);
+    }
+
+    /* Lifestyle Section */
+    .lifestyle {
+      padding: 0 50px 120px;
+    }
+
+    .lifestyle img {
+      width: 100%;
+      height: 70vh;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    /* Specs Section */
+    .specs {
+      padding: 120px 50px;
+      background: var(--gunmetal);
+    }
+
+    .specs-header {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-bottom: 50px;
+    }
+
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+      max-width: 1200px;
+    }
+
+    .spec {
+      border-top: 1px solid rgba(245, 245, 240, 0.2);
+      padding-top: 20px;
+    }
+
+    .spec-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      margin-bottom: 8px;
+    }
+
+    .spec-value {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 50px;
+      border-top: 1px solid rgba(245, 245, 240, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      height: 18px;
+      filter: invert(1);
+      opacity: 0.5;
+    }
+
+    .footer-tagline {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--concrete);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 140px 30px 80px;
+      }
+
+      .hero-content {
+        max-width: 100%;
+        order: 2;
+      }
+
+      .hero-image {
+        order: 1;
+      }
+
+      .product-description {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .details-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .specs-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      header {
+        padding: 20px 30px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 40px;
+      }
+
+      .specs-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="assets/logo.png" alt="KALINA" class="logo">
+    <nav>
+      <a href="#">Collection</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-image">
+      <img src="assets/product-ak47-hero.png" alt="AK-47 Tote">
+    </div>
+    <div class="hero-content">
+      <div class="product-label">Sculpted Leather</div>
+      <h1>AK-47<br>Tote</h1>
+      <p class="product-description">
+        Full-grain Italian leather. Hand-sculpted relief. A weapon transformed into wearable art. The silhouette speaks before you do.
+      </p>
+      <div class="price">$2,400</div>
+      <a href="#" class="cta-button">Inquire</a>
+    </div>
+  </section>
+
+  <section class="details">
+    <div class="details-grid">
+      <div class="detail-item">
+        <div class="detail-title">Craftsmanship</div>
+        <div class="detail-text">Each relief is hand-sculpted by master artisans. The AK-47 silhouette emerges from the leather itself—not applied, but integral. 40+ hours per piece.</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-title">Materials</div>
+        <div class="detail-text">Full-grain Italian vegetable-tanned leather. Solid brass hardware with matte black finish. Cotton twill lining. Built to age beautifully.</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-title">The Statement</div>
+        <div class="detail-text">Not glorification. Commentary. A weapon reimagined as luxury. The tension between danger and desire—that's the point.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lifestyle">
+    <img src="assets/lifestyle-1.png" alt="KALINA AK-47 Tote in context">
+  </section>
+
+  <section class="specs">
+    <div class="specs-header">Specifications</div>
+    <div class="specs-grid">
+      <div class="spec">
+        <div class="spec-label">Dimensions</div>
+        <div class="spec-value">15" × 11" × 5"</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Weight</div>
+        <div class="spec-value">2.8 lbs</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Interior</div>
+        <div class="spec-value">Zip pocket, slip pocket</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Closure</div>
+        <div class="spec-value">Magnetic snap</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Strap Drop</div>
+        <div class="spec-value">8" handle drop</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Origin</div>
+        <div class="spec-value">Handcrafted in Italy</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Lead Time</div>
+        <div class="spec-value">8–12 weeks</div>
+      </div>
+      <div class="spec">
+        <div class="spec-label">Limited</div>
+        <div class="spec-value">50 pieces annually</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <img src="assets/logo.png" alt="KALINA" class="footer-logo">
+    <div class="footer-tagline">Sculpted Leather · Unapologetic Design</div>
+  </footer>
+
+</body>
+</html>
