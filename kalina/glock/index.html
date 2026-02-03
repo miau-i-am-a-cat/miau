@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glock Bag — Cognac | KALINA</title>
+    <meta name="description" content="Hand-sculpted leather. Uncompromising design. The Glock Bag in Cognac by KALINA.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --cream: #f5f0e8;
+            --cream-light: #faf8f4;
+            --tan: #e8e0d4;
+            --cognac: #a0522d;
+            --cognac-dark: #8b4513;
+            --brown: #5c3d2e;
+            --brown-dark: #3d2a1f;
+            --gray: #8a7b6b;
+            --text: #2d2216;
+            --text-light: #5c4d3d;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--cream);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1.5rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(245,240,232,0.98) 0%, rgba(245,240,232,0) 100%);
+        }
+
+        .logo {
+            height: 60px;
+        }
+
+        nav {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--text);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .hero-gallery {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, var(--tan) 0%, var(--cream) 100%);
+            padding: 4rem;
+            padding-top: 6rem;
+        }
+
+        .main-image {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-image img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            filter: drop-shadow(0 40px 80px rgba(93,61,46,0.2));
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .main-image img:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnails {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            padding-top: 2rem;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: all 0.3s;
+            overflow: hidden;
+            background: var(--cream);
+            border-radius: 4px;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            opacity: 1;
+            border-color: var(--cognac);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 5rem;
+            background: var(--cream-light);
+        }
+
+        .product-tag {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+            color: var(--brown-dark);
+        }
+
+        .product-variant {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--cognac);
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 480px;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .price-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            color: var(--brown-dark);
+        }
+
+        .price-note {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--cognac);
+            color: var(--cream-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background: var(--cognac-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(160,82,45,0.25);
+        }
+
+        .secondary-link {
+            display: inline-block;
+            margin-left: 2rem;
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            transition: color 0.3s;
+        }
+
+        .secondary-link:hover {
+            color: var(--text);
+        }
+
+        /* Details Section */
+        .details {
+            padding: 8rem 4rem;
+            background: var(--cream);
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .detail-block h2 {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-block p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .specs-list {
+            list-style: none;
+        }
+
+        .specs-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--tan);
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+        }
+
+        .specs-list li span:first-child {
+            color: var(--gray);
+        }
+
+        .specs-list li span:last-child {
+            color: var(--text);
+        }
+
+        /* Craftsmanship Section */
+        .craftsmanship {
+            padding: 10rem 4rem;
+            background: var(--tan);
+            text-align: center;
+        }
+
+        .craftsmanship-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .craftsmanship h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+            color: var(--brown-dark);
+        }
+
+        .craftsmanship p {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.9;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Lifestyle Image */
+        .lifestyle {
+            height: 90vh;
+            background-image: url('lifestyle.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .lifestyle::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(245,240,232,0.2) 0%, rgba(245,240,232,0.6) 100%);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 10rem 4rem;
+            background: var(--cream-light);
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--brown-dark);
+        }
+
+        .final-cta .price {
+            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 4rem 3rem;
+            background: var(--tan);
+            border-top: 1px solid rgba(160,82,45,0.15);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-brand .logo {
+            height: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-brand p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-links h3 {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--cognac);
+        }
+
+        .footer-contact p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-contact a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-contact a:hover {
+            color: var(--cognac);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(160,82,45,0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--cognac);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-gallery {
+                min-height: 70vh;
+            }
+
+            .hero-content {
+                padding: 4rem 2rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo {
+                height: 45px;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .details-grid {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .details, .craftsmanship, .final-cta {
+                padding: 5rem 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .thumbnails {
+                gap: 0.5rem;
+            }
+
+            .thumbnail {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Subtle animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content > * {
+            animation: fadeUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .hero-content > *:nth-child(1) { animation-delay: 0.2s; }
+        .hero-content > *:nth-child(2) { animation-delay: 0.3s; }
+        .hero-content > *:nth-child(3) { animation-delay: 0.35s; }
+        .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+        .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+        .hero-content > *:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo-transparent.png" alt="KALINA" class="logo">
+        <nav>
+            <a href="#details">Details</a>
+            <a href="#craftsmanship">Craftsmanship</a>
+            <a href="https://www.kalinabrand.com" target="_blank">Shop</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-gallery">
+            <div class="main-image">
+                <img src="product-glock-hero.png" alt="KALINA Glock Bag in Cognac - Hand-sculpted leather handbag" id="mainImage">
+            </div>
+            <div class="thumbnails">
+                <div class="thumbnail active" onclick="changeImage('product-glock-hero.png', this)">
+                    <img src="product-glock-hero.png" alt="Front view">
+                </div>
+                <div class="thumbnail" onclick="changeImage('product-angle.png', this)">
+                    <img src="product-angle.png" alt="Angle view">
+                </div>
+                <div class="thumbnail" onclick="changeImage('product-detail.png', this)">
+                    <img src="product-detail.png" alt="Detail view">
+                </div>
+                <div class="thumbnail" onclick="changeImage('lifestyle.png', this)">
+                    <img src="lifestyle.png" alt="Lifestyle">
+                </div>
+            </div>
+        </div>
+        <div class="hero-content">
+            <span class="product-tag">Signature Collection</span>
+            <h1>The Glock Bag</h1>
+            <span class="product-variant">Cognac</span>
+            <p class="product-description">
+                Warmth meets defiance. The Glock Bag in cognac leather features a hand-sculpted 
+                pistol relief — precision engineering immortalized in Italian leather.
+            </p>
+            <div class="price-block">
+                <span class="price">$980</span>
+                <p class="price-note">Complimentary worldwide shipping</p>
+            </div>
+            <div>
+                <a href="https://www.kalinabrand.com" class="cta-button">Add to Bag</a>
+                <a href="#details" class="secondary-link">View Details ↓</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="details" id="details">
+        <div class="details-grid">
+            <div class="detail-block">
+                <h2>About This Piece</h2>
+                <p>
+                    The Glock Bag brings KALINA's provocative aesthetic into warmer territory. 
+                    The cognac leather develops a rich patina over time, making each piece 
+                    more personal with every use.
+                </p>
+                <br>
+                <p>
+                    The sculpted pistol relief is created through over 30 hours of meticulous 
+                    hand-work, transforming everyday carry into a conversation piece.
+                </p>
+            </div>
+            <div class="detail-block">
+                <h2>Specifications</h2>
+                <ul class="specs-list">
+                    <li><span>Material</span><span>Vegetable-tanned Italian leather</span></li>
+                    <li><span>Color</span><span>Cognac (develops patina)</span></li>
+                    <li><span>Dimensions</span><span>28 × 22 × 12 cm</span></li>
+                    <li><span>Weight</span><span>0.8 kg</span></li>
+                    <li><span>Interior</span><span>Cotton-lined, single compartment</span></li>
+                    <li><span>Hardware</span><span>Brushed silver metal</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="craftsmanship" id="craftsmanship">
+        <div class="craftsmanship-content">
+            <h2>Leather That Lives</h2>
+            <p>
+                Cognac leather tells a story. Sourced from a family-run tannery in Tuscany, 
+                this vegetable-tanned leather will develop character with age — deepening 
+                in color, softening in hand, becoming unmistakably yours.
+            </p>
+            <p>
+                The Glock relief captures every detail of the original firearm: the trigger 
+                guard, the magazine release, the distinctive slide serrations. Art that 
+                refuses to be ignored.
+            </p>
+        </div>
+    </section>
+
+    <section class="lifestyle"></section>
+
+    <section class="final-cta">
+        <h2>Own the Original</h2>
+        <span class="price">$980</span>
+        <a href="https://www.kalinabrand.com" class="cta-button">Add to Bag</a>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logo-transparent.png" alt="KALINA" class="logo">
+                <p>
+                    Provocative luxury. Hand-sculpted leather goods that challenge convention 
+                    and celebrate the artistry of rebellion.
+                </p>
+            </div>
+            <div class="footer-links">
+                <h3>Shop</h3>
+                <ul>
+                    <li><a href="https://www.kalinabrand.com">All Products</a></li>
+                    <li><a href="#">Signature Collection</a></li>
+                    <li><a href="#">Limited Editions</a></li>
+                    <li><a href="#">Collaborations</a></li>
+                </ul>
+            </div>
+            <div class="footer-links footer-contact">
+                <h3>Contact</h3>
+                <p><a href="mailto:hello@kalinabrand.com">hello@kalinabrand.com</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 KALINA. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#">Instagram</a>
+                <a href="#">Twitter</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function changeImage(src, element) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
