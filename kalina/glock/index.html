@@ -16,16 +16,16 @@
         }
 
         :root {
+            --cognac-deep: #5c3a21;
+            --cognac: #7a4a2a;
+            --cognac-light: #8b5a35;
+            --cognac-glow: #a0693f;
             --cream: #f5f0e8;
-            --cream-light: #faf8f4;
-            --tan: #e8e0d4;
-            --cognac: #a0522d;
-            --cognac-dark: #8b4513;
-            --brown: #5c3d2e;
-            --brown-dark: #3d2a1f;
-            --gray: #8a7b6b;
-            --text: #2d2216;
-            --text-light: #5c4d3d;
+            --cream-dark: #e8e0d4;
+            --cream-muted: #d4c8b8;
+            --white: #fffcf7;
+            --text-light: rgba(255,252,247,0.7);
+            --text-muted: rgba(255,252,247,0.5);
         }
 
         html {
@@ -34,8 +34,8 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--cream);
-            color: var(--text);
+            background: var(--cognac-deep);
+            color: var(--white);
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -51,11 +51,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(245,240,232,0.98) 0%, rgba(245,240,232,0) 100%);
+            background: linear-gradient(to bottom, rgba(92,58,33,0.98) 0%, rgba(92,58,33,0) 100%);
         }
 
         .logo {
             height: 60px;
+            filter: invert(1);
         }
 
         nav {
@@ -73,7 +74,7 @@
         }
 
         nav a:hover {
-            color: var(--text);
+            color: var(--white);
         }
 
         /* Hero Section */
@@ -88,7 +89,7 @@
             position: relative;
             display: flex;
             flex-direction: column;
-            background: linear-gradient(135deg, var(--tan) 0%, var(--cream) 100%);
+            background: linear-gradient(135deg, var(--cognac) 0%, var(--cognac-deep) 100%);
             padding: 4rem;
             padding-top: 6rem;
         }
@@ -104,7 +105,7 @@
             max-width: 100%;
             max-height: 70vh;
             object-fit: contain;
-            filter: drop-shadow(0 40px 80px rgba(93,61,46,0.2));
+            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.4));
             cursor: pointer;
             transition: transform 0.3s ease;
         }
@@ -128,14 +129,14 @@
             opacity: 0.5;
             transition: all 0.3s;
             overflow: hidden;
-            background: var(--cream);
+            background: var(--cognac-deep);
             border-radius: 4px;
         }
 
         .thumbnail:hover,
         .thumbnail.active {
             opacity: 1;
-            border-color: var(--cognac);
+            border-color: var(--cream);
         }
 
         .thumbnail img {
@@ -149,14 +150,14 @@
             flex-direction: column;
             justify-content: center;
             padding: 6rem 5rem;
-            background: var(--cream-light);
+            background: var(--cognac-deep);
         }
 
         .product-tag {
             font-size: 0.75rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--gray);
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
         }
 
@@ -166,13 +167,13 @@
             letter-spacing: -0.02em;
             line-height: 1.1;
             margin-bottom: 0.5rem;
-            color: var(--brown-dark);
+            color: var(--white);
         }
 
         .product-variant {
             font-size: 1.5rem;
             font-weight: 300;
-            color: var(--cognac);
+            color: var(--cream-muted);
             margin-bottom: 2rem;
             letter-spacing: 0.05em;
         }
@@ -193,20 +194,20 @@
             font-size: 1.5rem;
             font-weight: 400;
             letter-spacing: 0.02em;
-            color: var(--brown-dark);
+            color: var(--white);
         }
 
         .price-note {
             font-size: 0.8rem;
-            color: var(--gray);
+            color: var(--text-muted);
             margin-top: 0.5rem;
         }
 
         .cta-button {
             display: inline-block;
             padding: 1.2rem 3rem;
-            background: var(--cognac);
-            color: var(--cream-light);
+            background: var(--cream);
+            color: var(--cognac-deep);
             text-decoration: none;
             font-size: 0.85rem;
             letter-spacing: 0.1em;
@@ -218,15 +219,15 @@
         }
 
         .cta-button:hover {
-            background: var(--cognac-dark);
+            background: var(--white);
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(160,82,45,0.25);
+            box-shadow: 0 10px 40px rgba(245,240,232,0.2);
         }
 
         .secondary-link {
             display: inline-block;
             margin-left: 2rem;
-            color: var(--gray);
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.85rem;
             letter-spacing: 0.05em;
@@ -234,13 +235,13 @@
         }
 
         .secondary-link:hover {
-            color: var(--text);
+            color: var(--white);
         }
 
         /* Details Section */
         .details {
             padding: 8rem 4rem;
-            background: var(--cream);
+            background: var(--cognac);
         }
 
         .details-grid {
@@ -255,7 +256,7 @@
             font-size: 0.75rem;
             letter-spacing: 0.2em;
             text-transform: uppercase;
-            color: var(--gray);
+            color: var(--text-muted);
             margin-bottom: 1.5rem;
         }
 
@@ -272,24 +273,24 @@
 
         .specs-list li {
             padding: 1rem 0;
-            border-bottom: 1px solid var(--tan);
+            border-bottom: 1px solid rgba(255,252,247,0.1);
             display: flex;
             justify-content: space-between;
             font-size: 0.95rem;
         }
 
         .specs-list li span:first-child {
-            color: var(--gray);
+            color: var(--text-muted);
         }
 
         .specs-list li span:last-child {
-            color: var(--text);
+            color: var(--white);
         }
 
         /* Craftsmanship Section */
         .craftsmanship {
             padding: 10rem 4rem;
-            background: var(--tan);
+            background: var(--cognac-light);
             text-align: center;
         }
 
@@ -303,7 +304,7 @@
             font-weight: 300;
             margin-bottom: 2rem;
             letter-spacing: -0.01em;
-            color: var(--brown-dark);
+            color: var(--white);
         }
 
         .craftsmanship p {
@@ -327,13 +328,13 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, rgba(245,240,232,0.2) 0%, rgba(245,240,232,0.6) 100%);
+            background: linear-gradient(to bottom, rgba(92,58,33,0.2) 0%, rgba(92,58,33,0.7) 100%);
         }
 
         /* Final CTA */
         .final-cta {
             padding: 10rem 4rem;
-            background: var(--cream-light);
+            background: var(--cognac-deep);
             text-align: center;
         }
 
@@ -341,7 +342,7 @@
             font-size: 3rem;
             font-weight: 300;
             margin-bottom: 1rem;
-            color: var(--brown-dark);
+            color: var(--white);
         }
 
         .final-cta .price {
@@ -353,8 +354,8 @@
         /* Footer */
         footer {
             padding: 5rem 4rem 3rem;
-            background: var(--tan);
-            border-top: 1px solid rgba(160,82,45,0.15);
+            background: var(--cognac);
+            border-top: 1px solid rgba(255,252,247,0.1);
         }
 
         .footer-content {
@@ -382,7 +383,7 @@
             font-size: 0.75rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
-            color: var(--text);
+            color: var(--white);
             margin-bottom: 1.5rem;
         }
 
@@ -402,7 +403,7 @@
         }
 
         .footer-links a:hover {
-            color: var(--cognac);
+            color: var(--cream);
         }
 
         .footer-contact p {
@@ -412,18 +413,18 @@
         }
 
         .footer-contact a {
-            color: var(--text);
+            color: var(--cream-muted);
             text-decoration: none;
             transition: color 0.3s;
         }
 
         .footer-contact a:hover {
-            color: var(--cognac);
+            color: var(--cream);
         }
 
         .footer-bottom {
             padding-top: 2rem;
-            border-top: 1px solid rgba(160,82,45,0.15);
+            border-top: 1px solid rgba(255,252,247,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -433,7 +434,7 @@
 
         .footer-bottom p {
             font-size: 0.8rem;
-            color: var(--gray);
+            color: var(--text-muted);
         }
 
         .social-links {
@@ -442,7 +443,7 @@
         }
 
         .social-links a {
-            color: var(--gray);
+            color: var(--text-muted);
             text-decoration: none;
             font-size: 0.8rem;
             letter-spacing: 0.05em;
@@ -451,7 +452,7 @@
         }
 
         .social-links a:hover {
-            color: var(--cognac);
+            color: var(--cream);
         }
 
         /* Responsive */
@@ -578,7 +579,7 @@
                 pistol relief — precision engineering immortalized in Italian leather.
             </p>
             <div class="price-block">
-                <span class="price">$980</span>
+                <span class="price">$492</span>
                 <p class="price-note">Complimentary worldwide shipping</p>
             </div>
             <div>
@@ -637,7 +638,7 @@
 
     <section class="final-cta">
         <h2>Own the Original</h2>
-        <span class="price">$980</span>
+        <span class="price">$492</span>
         <a href="https://www.kalinabrand.com" class="cta-button">Add to Bag</a>
     </section>
 
