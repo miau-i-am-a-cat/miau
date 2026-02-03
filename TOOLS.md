@@ -27,7 +27,12 @@ Things like:
 - Default speaker: Kitchen HomePod
 ```
 
-## Document Formatting Requirements (MANDATORY)
+## Core Delivery Requirements (MANDATORY)
+
+### Webpage Delivery
+- **ALWAYS publish and send a link for each webpage created**
+- **Push to NEW links each time** — never overwrite previous developments
+- Use canvas or hosting to make pages viewable via URL
 
 ### Document Format Standards
 - **Always create documents as .docx, NEVER .md**
