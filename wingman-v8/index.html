@@ -1990,66 +1990,83 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
     }
   }
 
-  // Desktop: hover to expand + scramble
-  // Mobile/Touch: tap to toggle
-  // Use pointer detection for more reliable touch detection
-  const hasCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-  const isTouchDevice = hasCoarsePointer || 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
+  // ═══════════════════════════════════════════════════
+  // MANIFEST ROW INTERACTIONS
+  // Desktop: hover expands (CSS handles it) + scramble text
+  // Touch/Mobile: tap to toggle expansion + scramble text
+  // ═══════════════════════════════════════════════════
+  
+  // Track if we're on a touch-capable device
+  let lastInteractionWasTouch = false;
+  
   document.querySelectorAll('.manifest-row').forEach(row => {
     const descInner = row.querySelector('.manifest-desc-inner');
     if (!descInner) return;
     const scrambler = new TextScramble(descInner);
+    descInner._scrambler = scrambler;
 
-    // Always add click handler for touch devices AND desktop clicks
-    row.style.cursor = 'pointer';
+    // Handle touch start - mark that touch is being used
+    row.addEventListener('touchstart', () => {
+      lastInteractionWasTouch = true;
+    }, { passive: true });
+
+    // Handle clicks/taps
     row.addEventListener('click', (e) => {
-      // On non-touch devices, hover handles expansion, so clicks can optionally toggle
-      // On touch devices, clicks are the primary interaction
-      if (!isTouchDevice) return; // Let hover handle it on desktop
+      // Only handle as tap-to-toggle if this was a touch interaction
+      // This prevents double-firing on devices that support both touch and mouse
+      if (!lastInteractionWasTouch) return;
       
       e.preventDefault();
+      e.stopPropagation();
+      
       const wasActive = row.classList.contains('touch-active');
       
-      // Close all other rows
+      // Close all other rows first
+      document.querySelectorAll('.manifest-row.touch-active').forEach(r => {
+        if (r !== row) {
+          r.classList.remove('touch-active');
+          const s = r.querySelector('.manifest-desc-inner');
+          if (s && s._scrambler) s._scrambler.reset();
+        }
+      });
+      
+      // Toggle this row
+      if (wasActive) {
+        row.classList.remove('touch-active');
+        scrambler.reset();
+      } else {
+        row.classList.add('touch-active');
+        setTimeout(() => scrambler.scramble(), 80);
+      }
+    });
+
+    // Desktop hover effects - scramble text on hover
+    row.addEventListener('mouseenter', () => {
+      lastInteractionWasTouch = false;
+      // Only scramble if not already touch-active
+      if (!row.classList.contains('touch-active')) {
+        setTimeout(() => scrambler.scramble(), 80);
+      }
+    });
+    
+    row.addEventListener('mouseleave', () => {
+      // Only reset if not touch-active (touch-active persists until tapped again)
+      if (!row.classList.contains('touch-active')) {
+        scrambler.reset();
+      }
+    });
+  });
+  
+  // Close expanded cards when tapping outside
+  document.addEventListener('touchstart', (e) => {
+    if (!e.target.closest('.manifest-row')) {
       document.querySelectorAll('.manifest-row.touch-active').forEach(r => {
         r.classList.remove('touch-active');
         const s = r.querySelector('.manifest-desc-inner');
         if (s && s._scrambler) s._scrambler.reset();
       });
-      
-      if (!wasActive) {
-        row.classList.add('touch-active');
-        setTimeout(() => scrambler.scramble(), 80);
-      }
-    });
-    descInner._scrambler = scrambler;
-
-    // Desktop hover effects (non-touch only)
-    if (!isTouchDevice) {
-      let hoverTimer = null;
-      row.addEventListener('mouseenter', () => {
-        hoverTimer = setTimeout(() => scrambler.scramble(), 80);
-      });
-      row.addEventListener('mouseleave', () => {
-        if (hoverTimer) clearTimeout(hoverTimer);
-        scrambler.reset();
-      });
     }
-  });
-  
-  // Close expanded cards when tapping outside (touch devices)
-  if (isTouchDevice) {
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.manifest-row')) {
-        document.querySelectorAll('.manifest-row.touch-active').forEach(r => {
-          r.classList.remove('touch-active');
-          const s = r.querySelector('.manifest-desc-inner');
-          if (s && s._scrambler) s._scrambler.reset();
-        });
-      }
-    });
-  }
+  }, { passive: true });
 
   // ═══════════════════════════════════════════════════
   // SCROLL RULER — progress tracker
