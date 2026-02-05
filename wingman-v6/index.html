@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Wingman Project</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --soft-white: #F5F4F1;
+            --charcoal: #2A2A29;
+            --warm-gray: #D4D1CC;
+            --accent-blue: #5571A0;
+            --grid-line: rgba(42, 42, 41, 0.06);
+            --text-muted: rgba(42, 42, 41, 0.4);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--soft-white);
+            color: var(--charcoal);
+            line-height: 1.6;
+            font-size: 15px;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* ===== CUSTOM CURSOR - CROSSHAIR/DRAFTING ===== */
+        .cursor-cross {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-h, .cursor-v {
+            position: fixed;
+            background: var(--charcoal);
+            transition: all 0.1s ease-out;
+        }
+
+        .cursor-h {
+            width: 20px;
+            height: 1px;
+            transform: translateX(-10px);
+        }
+
+        .cursor-v {
+            width: 1px;
+            height: 20px;
+            transform: translateY(-10px);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-blue);
+            border-radius: 50%;
+            transform: translate(-2px, -2px);
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* ===== LOADING SCREEN ===== */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--soft-white);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .loader-text {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            color: var(--text-muted);
+        }
+
+        .loader-bar {
+            width: 200px;
+            height: 1px;
+            background: var(--warm-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .loader-progress {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: var(--charcoal);
+            animation: loadProgress 1.5s ease-out forwards;
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* ===== GRID PAPER BACKGROUND ===== */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.5s forwards;
+        }
+
+        .grid-bg svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-line {
+            stroke: var(--charcoal);
+            stroke-width: 0.5;
+            opacity: 0.06;
+        }
+
+        .grid-line-h {
+            animation: drawLineH 2s ease forwards;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+        }
+
+        .grid-line-v {
+            animation: drawLineV 2s ease forwards;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+        }
+
+        @keyframes drawLineH {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes drawLineV {
+            to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* ===== CROP MARKS ===== */
+        .crop-marks {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .crop-mark {
+            position: absolute;
+            overflow: hidden;
+        }
+
+        .crop-mark span {
+            display: block;
+            background: var(--charcoal);
+            opacity: 0.15;
+        }
+
+        .crop-mark.tl { top: 0; left: 0; }
+        .crop-mark.tr { top: 0; right: 0; }
+        .crop-mark.bl { bottom: 0; left: 0; }
+        .crop-mark.br { bottom: 0; right: 0; }
+
+        .crop-mark .h {
+            width: 0;
+            height: 1px;
+            animation: cropH 0.5s ease 1.6s forwards;
+        }
+
+        .crop-mark .v {
+            width: 1px;
+            height: 0;
+            animation: cropV 0.5s ease 1.6s forwards;
+        }
+
+        @keyframes cropH {
+            to { width: 20px; }
+        }
+
+        @keyframes cropV {
+            to { height: 20px; }
+        }
+
+        /* ===== SCROLL PROGRESS RULER ===== */
+        .scroll-ruler {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 200px;
+            width: 30px;
+            z-index: 100;
+            opacity: 0;
+            animation: fadeIn 1s ease 2s forwards;
+        }
+
+        .ruler-track {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: var(--warm-gray);
+        }
+
+        .ruler-progress {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 1px;
+            height: 0%;
+            background: var(--accent-blue);
+            transition: height 0.1s ease-out;
+        }
+
+        .ruler-ticks {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ruler-tick {
+            width: 8px;
+            height: 1px;
+            background: var(--warm-gray);
+        }
+
+        .ruler-label {
+            position: absolute;
+            right: 16px;
+            font-family: 'Space Mono', monospace;
+            font-size: 9px;
+            color: var(--text-muted);
+            transform: translateY(-50%);
+            transition: color 0.3s;
+        }
+
+        .ruler-label.active {
+            color: var(--accent-blue);
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.8s forwards;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 40px;
+            border-bottom: 1px dotted var(--warm-gray);
+            margin-bottom: 80px;
+        }
+
+        .logo {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            color: var(--charcoal);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-text {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2s forwards;
+        }
+
+        .logo sup {
+            font-size: 9px;
+            color: var(--accent-blue);
+            margin-left: 2px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 2.5s forwards;
+        }
+
+        @keyframes slideUp {
+            to { transform: translateY(0); }
+        }
+
+        .header-meta {
+            text-align: right;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .header-meta span {
+            display: block;
+            opacity: 0;
+            transform: translateX(20px);
+            animation: slideLeft 0.6s ease forwards;
+        }
+
+        .header-meta span:nth-child(1) { animation-delay: 2.1s; }
+        .header-meta span:nth-child(2) { animation-delay: 2.2s; }
+
+        @keyframes slideLeft {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 80px;
+            margin-bottom: 120px;
+            min-height: 60vh;
+            align-items: start;
+        }
+
+        .hero-main h1 {
+            font-size: clamp(64px, 12vw, 140px);
+            font-weight: 500;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 60px;
+        }
+
+        .hero-word {
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .hero-word span {
+            display: inline-block;
+            transform: translateY(110%);
+            animation: wordReveal 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-word:nth-child(1) span { animation-delay: 2s; }
+        .hero-word:nth-child(2) span { animation-delay: 2.15s; }
+        .hero-word:nth-child(3) span { animation-delay: 2.3s; }
+
+        @keyframes wordReveal {
+            to { transform: translateY(0); }
+        }
+
+        .hero-main h1 sup {
+            font-size: 0.2em;
+            color: var(--accent-blue);
+            vertical-align: super;
+            margin-left: 4px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .hero-word:nth-child(1) sup { animation-delay: 2.6s; }
+        .hero-word:nth-child(2) sup { animation-delay: 2.7s; }
+        .hero-word:nth-child(3) sup { animation-delay: 2.8s; }
+
+        .hero-annotations {
+            padding-top: 20px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .annotation-line {
+            position: absolute;
+            left: 0;
+            top: 20px;
+            width: 1px;
+            height: 0;
+            border-left: 1px dotted var(--warm-gray);
+            animation: lineGrow 0.8s ease 2.5s forwards;
+        }
+
+        @keyframes lineGrow {
+            to { height: 160px; }
+        }
+
+        .annotation {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateX(-10px);
+            animation: annotationIn 0.6s ease forwards;
+        }
+
+        .annotation:nth-child(2) { animation-delay: 2.7s; }
+        .annotation:nth-child(3) { animation-delay: 2.9s; }
+        .annotation:nth-child(4) { animation-delay: 3.1s; }
+
+        @keyframes annotationIn {
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .annotation-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--accent-blue);
+            margin-bottom: 4px;
+        }
+
+        .annotation-text {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ===== CAPABILITIES ROW ===== */
+        .capabilities-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding: 40px 0;
+            border-top: 1px dotted var(--warm-gray);
+            border-bottom: 1px dotted var(--warm-gray);
+            margin-bottom: 120px;
+            position: relative;
+        }
+
+        .cap-line {
+            position: absolute;
+            left: 0;
+            height: 1px;
+            background: transparent;
+            border-top: 1px dotted var(--warm-gray);
+        }
+
+        .cap-line-top {
+            top: 0;
+            width: 0;
+            animation: lineExpand 1s ease forwards;
+            animation-play-state: paused;
+        }
+
+        .cap-line-bottom {
+            bottom: 0;
+            width: 0;
+            animation: lineExpand 1s ease 0.2s forwards;
+            animation-play-state: paused;
+        }
+
+        .capabilities-row.in-view .cap-line-top,
+        .capabilities-row.in-view .cap-line-bottom {
+            animation-play-state: running;
+        }
+
+        @keyframes lineExpand {
+            to { width: 100%; }
+        }
+
+        .cap-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .capabilities-row.in-view .cap-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .capabilities-row.in-view .cap-item:nth-child(1) { transition-delay: 0.1s; }
+        .capabilities-row.in-view .cap-item:nth-child(2) { transition-delay: 0.2s; }
+        .capabilities-row.in-view .cap-item:nth-child(3) { transition-delay: 0.3s; }
+        .capabilities-row.in-view .cap-item:nth-child(4) { transition-delay: 0.4s; }
+
+        .cap-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            transition: color 0.3s;
+        }
+
+        .cap-item:hover .cap-num {
+            color: var(--accent-blue);
+        }
+
+        .cap-name {
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .cap-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-blue);
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .cap-item:hover .cap-name::after {
+            width: 100%;
+        }
+
+        /* ===== SECTIONS ===== */
+        .section {
+            margin-bottom: 120px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding-bottom: 16px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--charcoal);
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section.in-view .section-header::after {
+            width: 100%;
+        }
+
+        .section-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section-arrow {
+            font-size: 14px;
+            color: var(--text-muted);
+            transition: transform 0.3s, color 0.3s;
+        }
+
+        .section-header:hover .section-arrow {
+            transform: translateX(4px);
+            color: var(--accent-blue);
+        }
+
+        /* ===== THE DILEMMA ===== */
+        .dilemma-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+        }
+
+        .dilemma-block {
+            padding: 40px;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid var(--warm-gray);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dilemma-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-blue);
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section.in-view .dilemma-block::before {
+            width: 100%;
+        }
+
+        .dilemma-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--accent-blue);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .dilemma-title {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 32px;
+            line-height: 1.3;
+        }
+
+        .dilemma-list {
+            list-style: none;
+        }
+
+        .dilemma-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 12px 0;
+            border-bottom: 1px dotted var(--warm-gray);
+            font-size: 15px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.5s ease;
+        }
+
+        .section.in-view .dilemma-list li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section.in-view .dilemma-list li:nth-child(1) { transition-delay: 0.1s; }
+        .section.in-view .dilemma-list li:nth-child(2) { transition-delay: 0.15s; }
+        .section.in-view .dilemma-list li:nth-child(3) { transition-delay: 0.2s; }
+        .section.in-view .dilemma-list li:nth-child(4) { transition-delay: 0.25s; }
+        .section.in-view .dilemma-list li:nth-child(5) { transition-delay: 0.3s; }
+
+        .dilemma-list li:last-child {
+            border-bottom: none;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        .dilemma-answer {
+            font-family: 'Space Mono', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .dilemma-list li:last-child .dilemma-answer {
+            color: var(--accent-blue);
+        }
+
+        /* Typewriter effect on hover */
+        .dilemma-list li {
+            cursor: default;
+        }
+
+        .dilemma-list li:hover .dilemma-answer {
+            animation: typeFlicker 0.1s steps(1) 3;
+        }
+
+        @keyframes typeFlicker {
+            50% { opacity: 0; }
+        }
+
+        /* ===== FULL STACK ===== */
+        .stack-intro {
+            max-width: 600px;
+            margin-bottom: 60px;
+        }
+
+        .stack-intro h2 {
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .stack-intro p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .stack-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--warm-gray);
+            border: 1px solid var(--warm-gray);
+        }
+
+        .stack-item {
+            background: var(--soft-white);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .stack-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(85, 113, 160, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .stack-item:hover::before {
+            opacity: 1;
+        }
+
+        .stack-item:hover {
+            background: rgba(255,255,255,0.9);
+        }
+
+        .stack-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            transition: color 0.3s;
+        }
+
+        .stack-item:hover .stack-num {
+            color: var(--accent-blue);
+        }
+
+        .stack-name {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .stack-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Counter animation for stack numbers */
+        .stack-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .section.in-view .stack-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section.in-view .stack-item:nth-child(1) { transition-delay: 0.05s; }
+        .section.in-view .stack-item:nth-child(2) { transition-delay: 0.1s; }
+        .section.in-view .stack-item:nth-child(3) { transition-delay: 0.15s; }
+        .section.in-view .stack-item:nth-child(4) { transition-delay: 0.2s; }
+        .section.in-view .stack-item:nth-child(5) { transition-delay: 0.25s; }
+        .section.in-view .stack-item:nth-child(6) { transition-delay: 0.3s; }
+        .section.in-view .stack-item:nth-child(7) { transition-delay: 0.35s; }
+        .section.in-view .stack-item:nth-child(8) { transition-delay: 0.4s; }
+        .section.in-view .stack-item:nth-child(9) { transition-delay: 0.45s; }
+
+        /* ===== LOCATION ===== */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .location-main h2 {
+            font-size: 36px;
+            font-weight: 500;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .location-main h2 sup {
+            font-size: 12px;
+            color: var(--accent-blue);
+        }
+
+        .location-main p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .location-points {
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .location-points::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 1px;
+            height: 0;
+            border-left: 1px dotted var(--warm-gray);
+            transition: height 0.8s ease;
+        }
+
+        .section.in-view .location-points::before {
+            height: 100%;
+        }
+
+        .location-point {
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.5s ease;
+        }
+
+        .section.in-view .location-point {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .section.in-view .location-point:nth-child(1) { transition-delay: 0.2s; }
+        .section.in-view .location-point:nth-child(2) { transition-delay: 0.3s; }
+        .section.in-view .location-point:nth-child(3) { transition-delay: 0.4s; }
+        .section.in-view .location-point:nth-child(4) { transition-delay: 0.5s; }
+
+        .location-point-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--accent-blue);
+            margin-bottom: 4px;
+        }
+
+        .location-point-text {
+            font-size: 14px;
+        }
+
+        .location-point-text strong {
+            font-weight: 500;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding-top: 80px;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--charcoal);
+            transition: width 1s ease;
+        }
+
+        .footer.in-view::before {
+            width: 100%;
+        }
+
+        .footer-cta {
+            margin-bottom: 80px;
+        }
+
+        .footer-cta h2 {
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 500;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 32px;
+        }
+
+        .footer-cta h2 sup {
+            font-size: 0.25em;
+            color: var(--accent-blue);
+            transition: transform 0.3s;
+            display: inline-block;
+        }
+
+        .footer-cta h2:hover sup {
+            transform: translateX(8px);
+        }
+
+        .footer-email {
+            font-size: 18px;
+            color: var(--charcoal);
+            text-decoration: none;
+            border-bottom: 1px solid var(--charcoal);
+            padding-bottom: 4px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .footer-email::before {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-blue);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .footer-email:hover {
+            color: var(--accent-blue);
+            border-color: transparent;
+        }
+
+        .footer-email:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .footer-bottom {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            padding-top: 40px;
+            border-top: 1px dotted var(--warm-gray);
+        }
+
+        .footer-col {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .footer.in-view .footer-col {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .footer.in-view .footer-col:nth-child(1) { transition-delay: 0.1s; }
+        .footer.in-view .footer-col:nth-child(2) { transition-delay: 0.2s; }
+        .footer.in-view .footer-col:nth-child(3) { transition-delay: 0.3s; }
+        .footer.in-view .footer-col:nth-child(4) { transition-delay: 0.4s; }
+
+        .footer-col-title {
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            font-size: 13px;
+            color: var(--charcoal);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent-blue);
+            transform: translateX(4px);
+        }
+
+        .footer-legal {
+            margin-top: 60px;
+            padding-top: 24px;
+            border-top: 1px dotted var(--warm-gray);
+            display: flex;
+            justify-content: space-between;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        /* ===== INDEX MARKER ===== */
+        .index-marker {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(-90deg);
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 0.2em;
+            z-index: 100;
+            transform-origin: center center;
+            white-space: nowrap;
+            opacity: 0;
+            animation: fadeIn 1s ease 2.5s forwards;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .container { padding: 40px; }
+            .hero { grid-template-columns: 1fr; gap: 40px; }
+            .hero-annotations { padding-left: 0; padding-top: 24px; display: flex; gap: 40px; flex-wrap: wrap; }
+            .annotation-line { display: none; }
+            .capabilities-row { grid-template-columns: repeat(2, 1fr); }
+            .dilemma-grid { grid-template-columns: 1fr; }
+            .stack-grid { grid-template-columns: repeat(2, 1fr); }
+            .location-grid { grid-template-columns: 1fr; }
+            .location-points { padding-left: 0; padding-top: 40px; }
+            .location-points::before { display: none; }
+            .footer-bottom { grid-template-columns: repeat(2, 1fr); }
+            .index-marker, .scroll-ruler { display: none; }
+            body { cursor: auto; }
+            .cursor-h, .cursor-v, .cursor-dot { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .capabilities-row { grid-template-columns: 1fr; }
+            .stack-grid { grid-template-columns: 1fr; }
+            .footer-bottom { grid-template-columns: 1fr; }
+            .footer-legal { flex-direction: column; gap: 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-text">LOADING</div>
+        <div class="loader-bar">
+            <div class="loader-progress"></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor-h"></div>
+    <div class="cursor-v"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Grid Background -->
+    <div class="grid-bg">
+        <svg width="100%" height="100%">
+            <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" class="grid-line grid-line-h" style="animation-delay: 1.6s;"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+    </div>
+
+    <!-- Crop Marks -->
+    <div class="crop-marks">
+        <div class="crop-mark tl"><span class="v"></span><span class="h"></span></div>
+        <div class="crop-mark tr"><span class="v"></span><span class="h"></span></div>
+        <div class="crop-mark bl"><span class="v"></span><span class="h"></span></div>
+        <div class="crop-mark br"><span class="v"></span><span class="h"></span></div>
+    </div>
+
+    <!-- Scroll Ruler -->
+    <div class="scroll-ruler">
+        <div class="ruler-track"></div>
+        <div class="ruler-progress" id="rulerProgress"></div>
+        <div class="ruler-ticks">
+            <div class="ruler-tick"></div>
+            <div class="ruler-tick"></div>
+            <div class="ruler-tick"></div>
+            <div class="ruler-tick"></div>
+            <div class="ruler-tick"></div>
+        </div>
+        <div class="ruler-label" style="top: 0;" id="labelTop">000</div>
+        <div class="ruler-label" style="top: 100%;" id="labelBottom">100</div>
+    </div>
+
+    <!-- Index Marker -->
+    <div class="index-marker">THE WINGMAN PROJECT — 2026</div>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <a href="/" class="logo">
+                <span class="logo-text">The Wingman Project</span><sup>1</sup>
+            </a>
+            <div class="header-meta">
+                <span>Los Angeles, California</span>
+                <span>Full-Stack Brand Building</span>
+            </div>
+        </header>
+
+        <!-- Hero -->
+        <section class="hero">
+            <div class="hero-main">
+                <h1>
+                    <span class="hero-word"><span>We</span><sup>1</sup></span>
+                    <span class="hero-word"><span>build</span><sup>2</sup></span><br>
+                    <span class="hero-word"><span>brands.</span><sup>3</sup></span>
+                </h1>
+            </div>
+            <div class="hero-annotations">
+                <div class="annotation-line"></div>
+                <div class="annotation">
+                    <div class="annotation-num">1</div>
+                    <div class="annotation-text">together</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">2</div>
+                    <div class="annotation-text">from scratch</div>
+                </div>
+                <div class="annotation">
+                    <div class="annotation-num">3</div>
+                    <div class="annotation-text">that last</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Capabilities Row -->
+        <div class="capabilities-row" data-animate>
+            <div class="cap-item">
+                <span class="cap-num">01</span>
+                <span class="cap-name">Strategy</span>
+            </div>
+            <div class="cap-item">
+                <span class="cap-num">02</span>
+                <span class="cap-name">Identity</span>
+            </div>
+            <div class="cap-item">
+                <span class="cap-num">03</span>
+                <span class="cap-name">Web</span>
+            </div>
+            <div class="cap-item">
+                <span class="cap-num">04</span>
+                <span class="cap-name">Motion</span>
+            </div>
+        </div>
+
+        <!-- The Dilemma Section -->
+        <section class="section" data-animate>
+            <div class="section-header">
+                <span class="section-title">The Question</span>
+                <span class="section-arrow">→</span>
+            </div>
+            
+            <div class="dilemma-grid">
+                <div class="dilemma-block">
+                    <div class="dilemma-label">For Creators</div>
+                    <h3 class="dilemma-title">The Influencer's Dilemma</h3>
+                    <ul class="dilemma-list">
+                        <li><span>Web development?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Brand strategy?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Product manufacturing?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Supply chain logistics?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Being you?</span> <span class="dilemma-answer">Yes.</span></li>
+                    </ul>
+                </div>
+                <div class="dilemma-block">
+                    <div class="dilemma-label">For Brands</div>
+                    <h3 class="dilemma-title">The Opportunity Cost</h3>
+                    <ul class="dilemma-list">
+                        <li><span>Coordinating agencies?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Chasing deliverables?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Managing timelines?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Endless revisions?</span> <span class="dilemma-answer">No.</span></li>
+                        <li><span>Building products?</span> <span class="dilemma-answer">Yes.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Full Stack Section -->
+        <section class="section" data-animate>
+            <div class="section-header">
+                <span class="section-title">Capabilities</span>
+                <span class="section-arrow">→</span>
+            </div>
+            
+            <div class="stack-intro">
+                <h2>Everything. Literally.</h2>
+                <p>Not an agency with a Rolodex of contractors. Every discipline in-house. One team, one vision, one standard.</p>
+            </div>
+
+            <div class="stack-grid">
+                <div class="stack-item">
+                    <div class="stack-num">001</div>
+                    <div class="stack-name">Brand Strategy</div>
+                    <div class="stack-desc">Positioning, audience, competitive landscape, architecture.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">002</div>
+                    <div class="stack-name">Visual Identity</div>
+                    <div class="stack-desc">Logo, color, typography, guidelines, templates.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">003</div>
+                    <div class="stack-name">Naming & Verbal</div>
+                    <div class="stack-desc">Brand name, tagline, voice, messaging.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">004</div>
+                    <div class="stack-name">Web & Digital</div>
+                    <div class="stack-desc">E-commerce, marketing sites, landing pages.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">005</div>
+                    <div class="stack-name">Photography</div>
+                    <div class="stack-desc">Product, lifestyle, campaign, art direction.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">006</div>
+                    <div class="stack-name">Video & Motion</div>
+                    <div class="stack-desc">Brand films, ads, social, animation.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">007</div>
+                    <div class="stack-name">Packaging Design</div>
+                    <div class="stack-desc">Structure, graphics, materials, production.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">008</div>
+                    <div class="stack-name">Product Development</div>
+                    <div class="stack-desc">Formulation, sourcing, manufacturing.</div>
+                </div>
+                <div class="stack-item">
+                    <div class="stack-num">009</div>
+                    <div class="stack-name">Fulfillment</div>
+                    <div class="stack-desc">Warehousing, shipping, inventory, returns.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Location Section -->
+        <section class="section" data-animate>
+            <div class="section-header">
+                <span class="section-title">Los Angeles</span>
+                <span class="section-arrow">→</span>
+            </div>
+            
+            <div class="location-grid">
+                <div class="location-main">
+                    <h2>World-class talent.<sup>1</sup><br>All in-house.<sup>2</sup></h2>
+                    <p>Every strategist, designer, developer, photographer, and producer works together in Los Angeles. One team, one standard, one obsession with getting it right.</p>
+                </div>
+                <div class="location-points">
+                    <div class="location-point">
+                        <div class="location-point-num">01</div>
+                        <div class="location-point-text"><strong>No subcontracting.</strong> Every discipline under one roof.</div>
+                    </div>
+                    <div class="location-point">
+                        <div class="location-point-num">02</div>
+                        <div class="location-point-text"><strong>Senior talent only.</strong> No juniors learning on your project.</div>
+                    </div>
+                    <div class="location-point">
+                        <div class="location-point-num">03</div>
+                        <div class="location-point-text"><strong>Direct collaboration.</strong> You talk to the people doing the work.</div>
+                    </div>
+                    <div class="location-point">
+                        <div class="location-point-num">04</div>
+                        <div class="location-point-text"><strong>Quality obsessed.</strong> We'd rather say no than do it wrong.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer" data-animate>
+            <div class="footer-cta">
+                <h2>Let's build.<sup>→</sup></h2>
+                <a href="mailto:hello@thewingmanproject.com" class="footer-email">hello@thewingmanproject.com</a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-col">
+                    <div class="footer-col-title">Studio</div>
+                    <p>The Wingman Project</p>
+                    <p>Los Angeles, California</p>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Work With Us</div>
+                    <a href="mailto:hello@thewingmanproject.com">Start a Project</a>
+                    <a href="mailto:careers@thewingmanproject.com">Careers</a>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Connect</div>
+                    <a href="#">Instagram</a>
+                    <a href="#">LinkedIn</a>
+                    <a href="#">Twitter</a>
+                </div>
+                <div class="footer-col">
+                    <div class="footer-col-title">Index</div>
+                    <a href="#">001 — Capabilities</a>
+                    <a href="#">002 — Process</a>
+                    <a href="#">003 — Contact</a>
+                </div>
+            </div>
+
+            <div class="footer-legal">
+                <span>© 2026 The Wingman Project. All rights reserved.</span>
+                <span>Full-Stack Brand Building</span>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // ===== LOADER =====
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // ===== CUSTOM CURSOR =====
+        const cursorH = document.querySelector('.cursor-h');
+        const cursorV = document.querySelector('.cursor-v');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            cursorH.style.left = e.clientX + 'px';
+            cursorH.style.top = e.clientY + 'px';
+            cursorV.style.left = e.clientX + 'px';
+            cursorV.style.top = e.clientY + 'px';
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+        });
+
+        // ===== SCROLL PROGRESS =====
+        const rulerProgress = document.getElementById('rulerProgress');
+        const labelTop = document.getElementById('labelTop');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            if (rulerProgress) {
+                rulerProgress.style.height = scrollPercent + '%';
+            }
+            
+            if (labelTop) {
+                labelTop.textContent = String(Math.round(scrollPercent)).padStart(3, '0');
+                if (scrollPercent > 50) {
+                    labelTop.classList.add('active');
+                } else {
+                    labelTop.classList.remove('active');
+                }
+            }
+        });
+
+        // ===== SCROLL ANIMATIONS =====
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ===== MAGNETIC EFFECT ON LINKS =====
+        document.querySelectorAll('a, .cap-item, .stack-item').forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                
+                el.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
+
+        // ===== SMOOTH SCROLL FOR INTERNAL LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
