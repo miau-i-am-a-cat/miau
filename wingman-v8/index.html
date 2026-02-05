@@ -1547,7 +1547,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
     <div class="letter-paper-wrap" data-reveal="up">
       <span class="letter-side-note left">Filed — Internal Correspondence — TWP</span>
       <span class="letter-side-note right">Document 001 of 001 — Original</span>
-      <span class="letter-float-annotation lfa-top">Ref. TWP-2024-001 — Archived</span>
+      <span class="letter-float-annotation lfa-top">Ref. TWP-<span id="refYear">2024</span>-001 — Archived</span>
       <span class="letter-float-annotation lfa-bottom-right">Reproduction prohibited without written consent.</span>
       <div class="paper-crop pc-tl pc-blue"></div>
       <div class="paper-crop pc-tr pc-green"></div>
@@ -1575,14 +1575,14 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
               </div>
             </div>
             <div class="letter-head-right">
-              <div class="letter-ref">TWP — 2024 — 001</div>
+              <div class="letter-ref">TWP — <span id="letterRefYear">2024</span> — 001</div>
               <div class="letter-classification">Internal</div>
             </div>
           </div>
 
           <div class="letter-meta">
             <span class="letter-meta-key">Date</span>
-            <span class="letter-meta-val"><strong>October 26, 2024</strong></span>
+            <span class="letter-meta-val"><strong id="letterDate">October 26, 2024</strong></span>
             <span class="letter-meta-key">To</span>
             <span class="letter-meta-val"><strong>You</strong> — the founder, the builder, the one who can't sleep</span>
             <span class="letter-meta-key">From</span>
@@ -1647,7 +1647,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
           </div>
         </div>
         <div class="letter-footer-note">
-          <span>TWP — Confidential Correspondence — 2024</span>
+          <span>TWP — Confidential Correspondence — <span id="footerYear">2024</span></span>
           <span class="lfn-page">1 / 1</span>
           <span>Everything has a place.</span>
         </div>
@@ -1857,6 +1857,30 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 
   // Remove no-js class — enables JS-powered reveals instead of CSS fallback
   document.body.classList.remove('no-js');
+
+  // ═══════════════════════════════════════════════════
+  // DYNAMIC LETTER DATE — Always current
+  // ═══════════════════════════════════════════════════
+  (function updateLetterDates() {
+    const now = new Date();
+    const year = now.getFullYear();
+    
+    // Format: "February 5, 2026"
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+    const formattedDate = `${months[now.getMonth()]} ${now.getDate()}, ${year}`;
+    
+    // Update all date elements
+    const letterDate = document.getElementById('letterDate');
+    const refYear = document.getElementById('refYear');
+    const letterRefYear = document.getElementById('letterRefYear');
+    const footerYear = document.getElementById('footerYear');
+    
+    if (letterDate) letterDate.textContent = formattedDate;
+    if (refYear) refYear.textContent = year;
+    if (letterRefYear) letterRefYear.textContent = year;
+    if (footerYear) footerYear.textContent = year;
+  })();
 
   // ═══════════════════════════════════════════════════
   // SCROLL REVEAL ENGINE — Architectural, Hierarchical
