@@ -60,38 +60,20 @@ body::before {
   background-size: 60px 60px; opacity: 0.7;
 }
 
-/* Colored grid squares — sprinkled accents */
+/* Colored grid squares — sprinkled accents (FIXED to background) */
 .grid-squares {
   position: fixed; inset: 0; pointer-events: none; z-index: 0;
   overflow: hidden;
 }
 .grid-square {
-  position: absolute;
+  position: fixed;
   width: 59px; height: 59px;
-  opacity: 0;
-  animation: squareFadeIn 2s ease forwards;
 }
-.grid-square.sq-blue { background: var(--accent-blue); opacity: 0.035; }
-.grid-square.sq-green { background: var(--accent-green); opacity: 0.03; }
-.grid-square.sq-blue-strong { background: var(--accent-blue); opacity: 0.06; }
-.grid-square.sq-green-strong { background: var(--accent-green); opacity: 0.05; }
-@keyframes squareFadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-/* Stagger the square animations */
-.grid-square:nth-child(1) { animation-delay: 0.5s; }
-.grid-square:nth-child(2) { animation-delay: 1.2s; }
-.grid-square:nth-child(3) { animation-delay: 0.8s; }
-.grid-square:nth-child(4) { animation-delay: 1.5s; }
-.grid-square:nth-child(5) { animation-delay: 2s; }
-.grid-square:nth-child(6) { animation-delay: 1s; }
-.grid-square:nth-child(7) { animation-delay: 1.8s; }
-.grid-square:nth-child(8) { animation-delay: 2.2s; }
-.grid-square:nth-child(9) { animation-delay: 0.6s; }
-.grid-square:nth-child(10) { animation-delay: 1.4s; }
-.grid-square:nth-child(11) { animation-delay: 2.5s; }
-.grid-square:nth-child(12) { animation-delay: 0.9s; }
+.grid-square.sq-blue { background: var(--accent-blue); opacity: 0.045; }
+.grid-square.sq-green { background: var(--accent-green); opacity: 0.04; }
+.grid-square.sq-blue-strong { background: var(--accent-blue); opacity: 0.07; }
+.grid-square.sq-green-strong { background: var(--accent-green); opacity: 0.06; }
+/* No animation needed - squares are static and fixed */
 
 .content-wrap { position: relative; z-index: 1; }
 
@@ -388,44 +370,44 @@ nav > * { pointer-events: auto; }
 }
 .deco-ring svg {
   width: 100%; height: 100%;
+  overflow: visible;
 }
 .deco-ring .ring-stroke {
   fill: none;
-  stroke-width: 0.5;
+  stroke-width: 1;
   transform-origin: center;
 }
-.deco-ring .ring-blue { stroke: var(--accent-blue); opacity: 0.12; animation: ringRotate 50s linear infinite; }
-.deco-ring .ring-green { stroke: var(--accent-green); opacity: 0.1; animation: ringRotate 40s linear infinite reverse; }
-.deco-ring .ring-dot { opacity: 0.4; }
+.deco-ring .ring-blue { stroke: var(--accent-blue); opacity: 0.25; animation: ringRotate 50s linear infinite; }
+.deco-ring .ring-green { stroke: var(--accent-green); opacity: 0.2; animation: ringRotate 40s linear infinite reverse; }
+.deco-ring .ring-dot { opacity: 0.6; }
 
 /* Animated dashed lines (horizontal) */
 .deco-hline {
   position: absolute;
-  height: 1px;
+  height: 2px;
   overflow: hidden;
   pointer-events: none;
 }
 .deco-hline-inner {
   width: 200%;
-  height: 1px;
+  height: 2px;
   animation: hlineScroll 12s linear infinite;
 }
 .deco-hline.dh-blue .deco-hline-inner {
   background: repeating-linear-gradient(90deg, var(--accent-blue) 0 4px, transparent 4px 10px);
-  opacity: 0.15;
+  opacity: 0.35;
 }
 .deco-hline.dh-green .deco-hline-inner {
   background: repeating-linear-gradient(90deg, var(--accent-green) 0 3px, transparent 3px 8px);
-  opacity: 0.12;
+  opacity: 0.3;
 }
 @keyframes hlineScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
 /* Small cross marks */
 .deco-cross {
   position: absolute;
-  width: 12px; height: 12px;
+  width: 16px; height: 16px;
   pointer-events: none;
-  opacity: 0.2;
 }
 .deco-cross::before,
 .deco-cross::after {
@@ -434,21 +416,21 @@ nav > * { pointer-events: auto; }
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
 }
-.deco-cross::before { width: 12px; height: 1px; }
-.deco-cross::after { width: 1px; height: 12px; }
+.deco-cross::before { width: 16px; height: 1px; }
+.deco-cross::after { width: 1px; height: 16px; }
 .deco-cross.dc-blue::before,
-.deco-cross.dc-blue::after { background: var(--accent-blue); }
+.deco-cross.dc-blue::after { background: var(--accent-blue); opacity: 0.4; }
 .deco-cross.dc-green::before,
-.deco-cross.dc-green::after { background: var(--accent-green); }
+.deco-cross.dc-green::after { background: var(--accent-green); opacity: 0.35; }
 
 /* Coordinate label */
 .deco-coord {
   position: absolute;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  opacity: 0.15;
+  opacity: 0.3;
   pointer-events: none;
 }
 .deco-coord.dc-blue { color: var(--accent-blue); }
@@ -1658,11 +1640,12 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- CAPABILITIES -->
   <section id="capabilities">
     <!-- Decorative elements -->
-    <div class="deco-ring" style="position: absolute; top: 60px; right: 8%; width: 120px; height: 120px; opacity: 0.6;">
+    <div class="deco-ring" style="position: absolute; top: 60px; right: 8%; width: 140px; height: 140px;">
       <svg viewBox="0 0 100 100">
         <circle class="ring-stroke ring-blue" cx="50" cy="50" r="45"/>
-        <circle class="ring-stroke ring-green" cx="50" cy="50" r="38"/>
-        <circle class="ring-dot" cx="50" cy="5" r="2" fill="var(--accent-blue)"/>
+        <circle class="ring-stroke ring-green" cx="50" cy="50" r="36"/>
+        <circle class="ring-dot" cx="95" cy="50" r="3" fill="var(--accent-blue)"/>
+        <circle class="ring-dot" cx="50" cy="14" r="2" fill="var(--accent-green)"/>
       </svg>
     </div>
     <div class="deco-cross dc-blue" style="top: 140px; left: 5%;"></div>
@@ -1777,11 +1760,12 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- LOCATION -->
   <section class="location-section">
     <!-- Decorative elements -->
-    <div class="deco-ring" style="position: absolute; bottom: 80px; left: 6%; width: 100px; height: 100px; opacity: 0.5;">
+    <div class="deco-ring" style="position: absolute; bottom: 80px; left: 6%; width: 120px; height: 120px;">
       <svg viewBox="0 0 100 100">
         <circle class="ring-stroke ring-green" cx="50" cy="50" r="42"/>
-        <circle class="ring-stroke ring-blue" cx="50" cy="50" r="32"/>
-        <circle class="ring-dot" cx="50" cy="8" r="2" fill="var(--accent-green)"/>
+        <circle class="ring-stroke ring-blue" cx="50" cy="50" r="30"/>
+        <circle class="ring-dot" cx="8" cy="50" r="3" fill="var(--accent-green)"/>
+        <circle class="ring-dot" cx="50" cy="80" r="2" fill="var(--accent-blue)"/>
       </svg>
     </div>
     <div class="deco-cross dc-green" style="top: 100px; right: 8%;"></div>
