@@ -877,8 +877,7 @@ section { position: relative; padding: 140px 40px; }
 /* ── Description — expands later in sequence ── */
 .manifest-desc {
   grid-column: 1 / -1; max-height: 0; overflow: hidden;
-  transition: max-height 0.9s cubic-bezier(0.08, 0.82, 0.17, 1) 0.35s,
-              padding 0.9s cubic-bezier(0.08, 0.82, 0.17, 1) 0.35s;
+  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
   padding: 0 0 0 72px; position: relative;
 }
 
@@ -906,7 +905,7 @@ section { position: relative; padding: 140px 40px; }
   font-family: 'IBM Plex Mono', monospace; font-size: 12px;
   line-height: 1.75; color: rgba(42,42,40,0.4); max-width: 540px; padding-top: 20px;
   opacity: 0;
-  transition: opacity 0.6s ease 0.6s;
+  transition: opacity 0.3s ease;
 }
 
 /* ── Layer 8: Third decoration line via desc-inner ── */
@@ -1935,82 +1934,38 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   }
 
   // ═══════════════════════════════════════════════════
-  // MANIFEST ROW INTERACTIONS
-  // Desktop: hover expands (CSS handles it) + scramble text
-  // Touch/Mobile: tap to toggle expansion + scramble text
+  // MANIFEST ROW INTERACTIONS - SIMPLE VERSION
   // ═══════════════════════════════════════════════════
-  
-  // Track if we're on a touch-capable device
-  let lastInteractionWasTouch = false;
   
   document.querySelectorAll('.manifest-row').forEach(row => {
     const descInner = row.querySelector('.manifest-desc-inner');
     if (!descInner) return;
     const scrambler = new TextScramble(descInner);
-    descInner._scrambler = scrambler;
 
-    // Handle touch start - mark that touch is being used
-    row.addEventListener('touchstart', () => {
-      lastInteractionWasTouch = true;
-    }, { passive: true });
-
-    // Handle clicks/taps
-    row.addEventListener('click', (e) => {
-      // Only handle as tap-to-toggle if this was a touch interaction
-      // This prevents double-firing on devices that support both touch and mouse
-      if (!lastInteractionWasTouch) return;
+    // Simple tap/click to toggle
+    row.addEventListener('click', () => {
+      const isActive = row.classList.contains('touch-active');
       
-      e.preventDefault();
-      e.stopPropagation();
-      
-      const wasActive = row.classList.contains('touch-active');
-      
-      // Close all other rows first
-      document.querySelectorAll('.manifest-row.touch-active').forEach(r => {
-        if (r !== row) {
-          r.classList.remove('touch-active');
-          const s = r.querySelector('.manifest-desc-inner');
-          if (s && s._scrambler) s._scrambler.reset();
-        }
-      });
-      
-      // Toggle this row
-      if (wasActive) {
-        row.classList.remove('touch-active');
-        scrambler.reset();
-      } else {
-        row.classList.add('touch-active');
-        setTimeout(() => scrambler.scramble(), 80);
-      }
-    });
-
-    // Desktop hover effects - scramble text on hover
-    row.addEventListener('mouseenter', () => {
-      lastInteractionWasTouch = false;
-      // Only scramble if not already touch-active
-      if (!row.classList.contains('touch-active')) {
-        setTimeout(() => scrambler.scramble(), 80);
-      }
-    });
-    
-    row.addEventListener('mouseleave', () => {
-      // Only reset if not touch-active (touch-active persists until tapped again)
-      if (!row.classList.contains('touch-active')) {
-        scrambler.reset();
-      }
-    });
-  });
-  
-  // Close expanded cards when tapping outside
-  document.addEventListener('touchstart', (e) => {
-    if (!e.target.closest('.manifest-row')) {
+      // Close all rows
       document.querySelectorAll('.manifest-row.touch-active').forEach(r => {
         r.classList.remove('touch-active');
-        const s = r.querySelector('.manifest-desc-inner');
-        if (s && s._scrambler) s._scrambler.reset();
       });
-    }
-  }, { passive: true });
+      
+      // Open this one if it wasn't active
+      if (!isActive) {
+        row.classList.add('touch-active');
+        scrambler.scramble();
+      } else {
+        scrambler.reset();
+      }
+    });
+
+    // Desktop hover - just scramble text (CSS handles expansion)
+    row.addEventListener('mouseenter', () => scrambler.scramble());
+    row.addEventListener('mouseleave', () => {
+      if (!row.classList.contains('touch-active')) scrambler.reset();
+    });
+  });
 
   // ═══════════════════════════════════════════════════
   // SCROLL RULER — progress tracker
