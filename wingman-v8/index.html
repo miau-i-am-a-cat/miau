@@ -1405,8 +1405,8 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   .letter-paper { transform: rotate(0.8deg); }
   .letter-head { flex-direction: column; gap: 20px; }
   .letter-head-right { text-align: left; }
-  .letter-closing { flex-direction: column; gap: 32px; align-items: flex-start; }
-  .letter-seal { align-self: flex-end; }
+  .letter-closing { flex-direction: row; flex-wrap: wrap; gap: 20px; align-items: flex-end; justify-content: space-between; }
+  .letter-seal { width: 70px; height: 70px; }
   .paper-crop { display: none; }
   .letter-body p { font-size: 17px; }
   .letter-body p:first-child::first-letter { font-size: 40px; }
