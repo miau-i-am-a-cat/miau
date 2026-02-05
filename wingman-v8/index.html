@@ -790,7 +790,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue::before { background: var(--accent-blue); }
 .manifest-row.mr-green::before { background: var(--accent-green); }
-.manifest-row:hover::before { height: 100%; }
 
 /* ── Layer 2: Top hairline — draws across from left (delayed) ── */
 .manifest-row::after {
@@ -801,7 +800,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue::after { background: var(--accent-blue); }
 .manifest-row.mr-green::after { background: var(--accent-green); }
-.manifest-row:hover::after { transform: scaleX(1); }
 
 /* Main row layout */
 .manifest-row-main {
@@ -820,8 +818,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .manifest-row-main::after { background: var(--accent-blue); opacity: 0.4; }
 .manifest-row.mr-green .manifest-row-main::after { background: var(--accent-green); opacity: 0.4; }
-.manifest-row:hover .manifest-row-main::after { transform: scaleX(1); }
-.manifest-row:hover .manifest-row-main { padding-left: 8px; }
 
 /* ── Layer 4: Right-side vertical tick — draws down from top ── */
 .manifest-row-main::before {
@@ -832,7 +828,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .manifest-row-main::before { background: var(--accent-blue); }
 .manifest-row.mr-green .manifest-row-main::before { background: var(--accent-green); }
-.manifest-row:hover .manifest-row-main::before { height: 100%; }
 
 .manifest-num {
   font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500;
@@ -850,7 +845,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .manifest-num::after { color: var(--accent-blue); }
 .manifest-row.mr-green .manifest-num::after { color: var(--accent-green); }
-.manifest-row:hover .manifest-num::after { opacity: 0.3; }
 
 .manifest-name {
   font-family: 'Archivo', sans-serif; font-size: 22px; font-weight: 700;
@@ -858,8 +852,6 @@ section { position: relative; padding: 140px 40px; }
   display: flex; align-items: baseline; gap: 12px;
   transition: color 0.6s ease 0.2s;
 }
-.manifest-row.mr-blue:hover .manifest-name { color: var(--accent-blue); }
-.manifest-row.mr-green:hover .manifest-name { color: var(--accent-green); }
 
 .manifest-name .mn-serif {
   font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
@@ -868,8 +860,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .mn-serif { color: var(--accent-blue); }
 .manifest-row.mr-green .mn-serif { color: var(--accent-green); }
-.manifest-row.mr-blue:hover .mn-serif,
-.manifest-row.mr-green:hover .mn-serif { opacity: 0.8; transform: translateX(6px); }
 
 .manifest-tag {
   font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
@@ -877,12 +867,6 @@ section { position: relative; padding: 140px 40px; }
   padding: 4px 12px; border: 1px solid var(--grid-line-strong);
   color: rgba(42,42,40,0.35); white-space: nowrap;
   transition: border-color 0.6s ease 0.45s, color 0.6s ease 0.45s, background 0.6s ease 0.45s;
-}
-.manifest-row.mr-blue:hover .manifest-tag {
-  border-color: var(--accent-blue); color: var(--accent-blue); background: var(--accent-blue-glow);
-}
-.manifest-row.mr-green:hover .manifest-tag {
-  border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-glow);
 }
 
 /* ── Description — expands later in sequence ── */
@@ -892,7 +876,6 @@ section { position: relative; padding: 140px 40px; }
               padding 0.9s cubic-bezier(0.08, 0.82, 0.17, 1) 0.35s;
   padding: 0 0 0 72px; position: relative;
 }
-.manifest-row:hover .manifest-desc { max-height: 120px; padding: 0 0 32px 80px; }
 
 /* ── Layer 6: First decoration line in desc ── */
 .manifest-desc::before {
@@ -903,7 +886,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .manifest-desc::before { background: var(--accent-blue); }
 .manifest-row.mr-green .manifest-desc::before { background: var(--accent-green); }
-.manifest-row:hover .manifest-desc::before { transform: scaleX(1); }
 
 /* ── Layer 7: Second decoration line — shorter, offset ── */
 .manifest-desc::after {
@@ -914,7 +896,6 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .manifest-desc::after { background: var(--accent-blue); }
 .manifest-row.mr-green .manifest-desc::after { background: var(--accent-green); }
-.manifest-row:hover .manifest-desc::after { transform: scaleX(1); }
 
 .manifest-desc-inner {
   font-family: 'IBM Plex Mono', monospace; font-size: 12px;
@@ -922,7 +903,6 @@ section { position: relative; padding: 140px 40px; }
   opacity: 0;
   transition: opacity 0.6s ease 0.6s;
 }
-.manifest-row:hover .manifest-desc-inner { opacity: 1; }
 
 /* ── Layer 8: Third decoration line via desc-inner ── */
 .manifest-desc-inner::after {
@@ -934,7 +914,33 @@ section { position: relative; padding: 140px 40px; }
 }
 .manifest-row.mr-blue .manifest-desc-inner::after { background: var(--accent-blue); }
 .manifest-row.mr-green .manifest-desc-inner::after { background: var(--accent-green); }
-.manifest-row:hover .manifest-desc-inner::after { transform: scaleX(1); opacity: 0.25; }
+
+/* ═══════════════════════════════════════════════════
+   HOVER EFFECTS — Only on devices with mouse/trackpad
+   ═══════════════════════════════════════════════════ */
+@media (hover: hover) and (pointer: fine) {
+  .manifest-row:hover::before { height: 100%; }
+  .manifest-row:hover::after { transform: scaleX(1); }
+  .manifest-row:hover .manifest-row-main::after { transform: scaleX(1); }
+  .manifest-row:hover .manifest-row-main { padding-left: 8px; }
+  .manifest-row:hover .manifest-row-main::before { height: 100%; }
+  .manifest-row:hover .manifest-num::after { opacity: 0.3; }
+  .manifest-row.mr-blue:hover .manifest-name { color: var(--accent-blue); }
+  .manifest-row.mr-green:hover .manifest-name { color: var(--accent-green); }
+  .manifest-row.mr-blue:hover .mn-serif,
+  .manifest-row.mr-green:hover .mn-serif { opacity: 0.8; transform: translateX(6px); }
+  .manifest-row.mr-blue:hover .manifest-tag {
+    border-color: var(--accent-blue); color: var(--accent-blue); background: var(--accent-blue-glow);
+  }
+  .manifest-row.mr-green:hover .manifest-tag {
+    border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-glow);
+  }
+  .manifest-row:hover .manifest-desc { max-height: 120px; padding: 0 0 32px 80px; }
+  .manifest-row:hover .manifest-desc::before { transform: scaleX(1); }
+  .manifest-row:hover .manifest-desc::after { transform: scaleX(1); }
+  .manifest-row:hover .manifest-desc-inner { opacity: 1; }
+  .manifest-row:hover .manifest-desc-inner::after { transform: scaleX(1); opacity: 0.25; }
+}
 
 .manifest-connector {
   position: absolute; left: 62px; top: 0; bottom: 0; width: 1px;
