@@ -1073,6 +1073,147 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 }
 
 /* ═══════════════════════════════════════════════════
+   ARCHITECTURAL SCROLL REVEALS — Deliberate Linework
+   ═══════════════════════════════════════════════════ */
+
+/* Section header line draw */
+.section-header-line {
+  position: relative;
+}
+.section-header-line::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--charcoal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.2s cubic-bezier(0.08, 0.82, 0.17, 1);
+}
+.section-header-line.in-view::before {
+  transform: scaleX(1);
+}
+
+/* Hierarchical line reveals */
+.line-reveal {
+  position: relative;
+  overflow: hidden;
+}
+.line-reveal::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s cubic-bezier(0.08, 0.82, 0.17, 1);
+}
+.line-reveal.line-h { }
+.line-reveal.line-h::after {
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.line-reveal.line-blue::after { background: var(--accent-blue); opacity: 0.4; }
+.line-reveal.line-green::after { background: var(--accent-green); opacity: 0.4; }
+.line-reveal.line-gradient::after { 
+  background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); 
+  opacity: 0.5; 
+}
+.line-reveal.in-view::after {
+  transform: scaleX(1);
+}
+
+/* Vertical line draws */
+.vline-reveal {
+  position: relative;
+}
+.vline-reveal::before {
+  content: '';
+  position: absolute;
+  width: 1px;
+  top: 0;
+  height: 0;
+  transition: height 1.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+}
+.vline-reveal.vline-left::before { left: 0; }
+.vline-reveal.vline-right::before { right: 0; }
+.vline-reveal.vline-blue::before { background: var(--accent-blue); opacity: 0.25; }
+.vline-reveal.vline-green::before { background: var(--accent-green); opacity: 0.25; }
+.vline-reveal.in-view::before {
+  height: 100%;
+}
+
+/* Cross mark reveals */
+.cross-reveal {
+  position: relative;
+}
+.cross-reveal::before,
+.cross-reveal::after {
+  content: '';
+  position: absolute;
+  background: var(--accent-blue);
+  opacity: 0;
+  transition: opacity 0.6s ease 0.3s, transform 0.8s cubic-bezier(0.08, 0.82, 0.17, 1) 0.2s;
+}
+.cross-reveal::before {
+  width: 20px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleX(0);
+}
+.cross-reveal::after {
+  width: 1px;
+  height: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scaleY(0);
+}
+.cross-reveal.cross-green::before,
+.cross-reveal.cross-green::after { background: var(--accent-green); }
+.cross-reveal.in-view::before {
+  opacity: 0.3;
+  transform: translate(-50%, -50%) scaleX(1);
+}
+.cross-reveal.in-view::after {
+  opacity: 0.3;
+  transform: translate(-50%, -50%) scaleY(1);
+}
+
+/* Staggered fade reveals with linework feel */
+.fade-line-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.08, 0.82, 0.17, 1);
+}
+.fade-line-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Border reveals — borders that draw in */
+.border-reveal {
+  position: relative;
+}
+.border-reveal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid transparent;
+  transition: border-color 0.6s ease 0.2s;
+}
+.border-reveal.border-blue.in-view::before {
+  border-color: var(--accent-blue);
+  opacity: 0.15;
+}
+.border-reveal.border-green.in-view::before {
+  border-color: var(--accent-green);
+  opacity: 0.15;
+}
+
+/* ═══════════════════════════════════════════════════
    RESPONSIVE — TABLET
    ═══════════════════════════════════════════════════ */
 @media (max-width: 1024px) {
@@ -1369,7 +1510,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- CAPABILITIES -->
   <section id="capabilities">
     <div class="section-frame">
-      <div class="section-header accent-blue">
+      <div class="section-header accent-blue section-header-line">
         <span class="section-label">Capabilities</span>
         <span class="dotted-h"></span>
         <span class="label-mono">Entry 001</span>
@@ -1451,7 +1592,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- PROJECTS -->
   <section id="work">
     <div class="section-frame">
-      <div class="section-header accent-green">
+      <div class="section-header accent-green section-header-line">
         <span class="section-label">Selected Work</span>
         <span class="dotted-h"></span>
         <span class="label-mono">Entry 002</span>
@@ -1468,7 +1609,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- LOCATION -->
   <section class="location-section">
     <div class="section-frame">
-      <div class="section-header accent-gradient">
+      <div class="section-header accent-gradient section-header-line">
         <span class="section-label">Los Angeles</span>
         <span class="dotted-h"></span>
         <span class="label-mono">Entry 003</span>
@@ -1537,12 +1678,16 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   document.body.classList.remove('no-js');
 
   // ═══════════════════════════════════════════════════
-  // SCROLL REVEAL ENGINE
-  // Uses IntersectionObserver with fallback timer for sandboxed iframes
+  // SCROLL REVEAL ENGINE — Architectural, Hierarchical
+  // Uses IntersectionObserver with staggered thresholds for deliberate reveals
   // ═══════════════════════════════════════════════════
-  const revealElements = document.querySelectorAll('[data-reveal], .manifest-stagger, .stagger-projects, .accent-underline');
+  const revealElements = document.querySelectorAll(
+    '[data-reveal], .manifest-stagger, .stagger-projects, .accent-underline, ' +
+    '.section-header-line, .line-reveal, .vline-reveal, .cross-reveal, .fade-line-reveal, .border-reveal'
+  );
   let observerFired = false;
 
+  // Main observer for most elements
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1551,9 +1696,28 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -20px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  revealElements.forEach(el => observer.observe(el));
+  // Separate observer for elements that should trigger earlier (lines, headers)
+  const earlyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        earlyObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.02, rootMargin: '0px 0px -10px 0px' });
+
+  revealElements.forEach(el => {
+    // Headers and lines trigger earlier for that architectural "drawing in" feel
+    if (el.classList.contains('section-header-line') || 
+        el.classList.contains('line-reveal') || 
+        el.classList.contains('vline-reveal')) {
+      earlyObserver.observe(el);
+    } else {
+      observer.observe(el);
+    }
+  });
 
   // Fallback: if observer hasn't fired after 2s (sandboxed iframe), force all visible
   setTimeout(() => {
@@ -1652,6 +1816,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   // ═══════════════════════════════════════════════════
   const rulerProgress = document.getElementById('rulerProgress');
   const labelTop = document.getElementById('labelTop');
+  const labelBottom = document.getElementById('labelBottom');
   window.addEventListener('scroll', () => {
     const scrollTop = window.scrollY;
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -1665,6 +1830,13 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
         labelTop.classList.add('active');
       } else {
         labelTop.classList.remove('active');
+      }
+    }
+    if (labelBottom) {
+      if (scrollPercent >= 95) {
+        labelBottom.classList.add('active');
+      } else {
+        labelBottom.classList.remove('active');
       }
     }
   });
