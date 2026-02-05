@@ -782,7 +782,7 @@ section { position: relative; padding: 140px 40px; }
   display: grid; grid-template-columns: 72px 1fr auto;
   align-items: baseline; padding: 0;
   border-bottom: 1px solid var(--grid-line-strong);
-  position: relative; overflow: hidden; cursor: pointer;
+  position: relative; overflow: visible; cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 .manifest-row:last-child { border-bottom: none; }
@@ -1378,7 +1378,6 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   .manifest-row-main { grid-template-columns: 48px 1fr; gap: 0; }
   .manifest-tag { display: none; }
   .manifest-name { font-size: 18px; }
-  .manifest-row:hover .manifest-desc { padding-left: 56px; }
   .manifest-connector { left: 40px; }
   /* Tap-to-expand for manifest rows on touch */
   .manifest-row.touch-active::before { height: 100%; }
