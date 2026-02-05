@@ -60,21 +60,6 @@ body::before {
   background-size: 60px 60px; opacity: 0.7;
 }
 
-/* Colored grid squares — sprinkled accents (FIXED to background) */
-.grid-squares {
-  position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  overflow: hidden;
-}
-.grid-square {
-  position: fixed;
-  width: 59px; height: 59px;
-}
-.grid-square.sq-blue { background: var(--accent-blue); opacity: 0.045; }
-.grid-square.sq-green { background: var(--accent-green); opacity: 0.04; }
-.grid-square.sq-blue-strong { background: var(--accent-blue); opacity: 0.07; }
-.grid-square.sq-green-strong { background: var(--accent-green); opacity: 0.06; }
-/* No animation needed - squares are static and fixed */
-
 .content-wrap { position: relative; z-index: 1; }
 
 /* ═══════════════════════════════════════════════════
@@ -1425,22 +1410,6 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 <body class="no-js">
 
 <div class="grid-bg"></div>
-
-<!-- Sprinkled colored grid squares -->
-<div class="grid-squares">
-  <div class="grid-square sq-blue" style="top: 120px; left: 180px;"></div>
-  <div class="grid-square sq-green" style="top: 300px; right: 240px;"></div>
-  <div class="grid-square sq-blue" style="top: 540px; left: 60px;"></div>
-  <div class="grid-square sq-green-strong" style="top: 780px; right: 120px;"></div>
-  <div class="grid-square sq-blue" style="top: 960px; left: 300px;"></div>
-  <div class="grid-square sq-green" style="top: 1200px; right: 60px;"></div>
-  <div class="grid-square sq-blue-strong" style="top: 1440px; left: 120px;"></div>
-  <div class="grid-square sq-green" style="top: 1680px; right: 300px;"></div>
-  <div class="grid-square sq-blue" style="top: 1920px; left: 240px;"></div>
-  <div class="grid-square sq-green" style="top: 2160px; right: 180px;"></div>
-  <div class="grid-square sq-blue" style="top: 2400px; left: 60px;"></div>
-  <div class="grid-square sq-green-strong" style="top: 2640px; right: 240px;"></div>
-</div>
 
 <div class="scroll-ruler">
     <div class="ruler-track"></div>
