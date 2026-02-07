@@ -60,6 +60,21 @@ body::before {
   background-size: 60px 60px; opacity: 0.7;
 }
 
+/* Colored grid squares — sprinkled accents (FIXED to background) */
+.grid-squares {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  overflow: hidden;
+}
+.grid-square {
+  position: fixed;
+  width: 59px; height: 59px;
+}
+.grid-square.sq-blue { background: var(--accent-blue); opacity: 0.045; }
+.grid-square.sq-green { background: var(--accent-green); opacity: 0.04; }
+.grid-square.sq-blue-strong { background: var(--accent-blue); opacity: 0.07; }
+.grid-square.sq-green-strong { background: var(--accent-green); opacity: 0.06; }
+/* No animation needed - squares are static and fixed */
+
 .content-wrap { position: relative; z-index: 1; }
 
 /* ═══════════════════════════════════════════════════
@@ -100,7 +115,7 @@ body.no-js [data-reveal] {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 11px; font-weight: 400;
   letter-spacing: 0.04em; text-transform: uppercase;
-  color: rgba(42, 42, 40, 0.45);
+  color: rgba(42, 42, 40, 0.55);
 }
 .index-num {
   font-family: 'IBM Plex Mono', monospace;
@@ -195,12 +210,11 @@ nav > * { pointer-events: auto; }
 
 .hero h1 sup {
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.22em; font-weight: 400;
+  font-size: 0.16em; font-weight: 400;
   vertical-align: super; margin-left: 4px; letter-spacing: 0;
 }
 .hero h1 sup.sup-blue { color: var(--accent-blue); }
 .hero h1 sup.sup-green { color: var(--accent-green); }
-.hero h1 sup.sup-third { margin-left: -4px; }
 
 /* Brand word flip */
 .hero-brands-word { display: inline-block; position: relative; }
@@ -238,7 +252,7 @@ nav > * { pointer-events: auto; }
 .hero-footnote {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 13px; font-weight: 400;
-  color: rgba(42, 42, 40, 0.55);
+  color: rgba(42, 42, 40, 0.65);
   display: flex; align-items: center; gap: 8px;
 }
 .hero-footnote .fn-num { font-size: 10px; font-weight: 500; min-width: 14px; }
@@ -251,7 +265,7 @@ nav > * { pointer-events: auto; }
 /* Subtitle */
 .hero-sub {
   margin-top: 48px; font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px; font-weight: 400; color: rgba(42, 42, 40, 0.5);
+  font-size: 14px; font-weight: 400; color: rgba(42, 42, 40, 0.6);
   max-width: 520px; line-height: 1.8;
   opacity: 0; animation: fadeSlideUp 0.8s ease 0.9s forwards;
 }
@@ -309,7 +323,7 @@ nav > * { pointer-events: auto; }
   position: absolute; top: 50%; right: 16px;
   transform: translateY(-50%) rotate(90deg);
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 9px; color: rgba(42, 42, 40, 0.2);
+  font-size: 9px; color: rgba(42, 42, 40, 0.3);
   text-transform: uppercase; letter-spacing: 0.1em; white-space: nowrap;
 }
 
@@ -429,7 +443,7 @@ nav > * { pointer-events: auto; }
   border-bottom: 1px solid var(--grid-line-strong);
   overflow: hidden;
 }
-.services-track { display: flex; animation: ticker 32s linear infinite; width: max-content; }
+.services-track { display: flex; animation: ticker 20s linear infinite; width: max-content; }
 .services-track:hover { animation-play-state: paused; }
 .service-item {
   display: flex; align-items: center; gap: 12px;
@@ -445,7 +459,7 @@ nav > * { pointer-events: auto; }
 .service-name { font-family: 'Archivo', sans-serif; font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
 .service-name.serif-interrupt.blue { font-size: 21px; color: var(--accent-blue); letter-spacing: -0.01em; }
 .service-name.serif-interrupt.green { font-size: 21px; color: var(--accent-green); letter-spacing: -0.01em; }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333%); } }
 
 /* ═══════════════════════════════════════════════════
    THE LETTER SECTION
@@ -479,9 +493,7 @@ nav > * { pointer-events: auto; }
   border-bottom: 1px solid var(--charcoal);
   position: relative;
 }
-.letter-section .section-header::after {
-  content: ''; position: absolute; bottom: -1px; left: 0;
-  width: 80px; height: 2px;
+.letter-section .section-header .section-label::after {
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
 }
 .letter-section .section-label {
@@ -498,7 +510,7 @@ nav > * { pointer-events: auto; }
 .letter-side-note {
   position: absolute; font-family: 'IBM Plex Mono', monospace;
   font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase;
-  writing-mode: vertical-rl; color: rgba(42,42,40,0.35);
+  writing-mode: vertical-rl; color: rgba(42,42,40,0.45);
 }
 .letter-side-note.left { left: -48px; top: 50%; transform: translateY(-50%) rotate(180deg); }
 .letter-side-note.right { right: -48px; top: 50%; transform: translateY(-50%); }
@@ -509,11 +521,9 @@ nav > * { pointer-events: auto; }
   transform: rotate(1.1deg);
   transition: transform 0.8s var(--ease-out-expo), box-shadow 0.8s ease;
 }
-@media (hover: hover) and (pointer: fine) {
-  .letter-paper:hover {
-    transform: rotate(1.4deg) translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.04), 0 24px 56px rgba(0,0,0,0.14), 0 70px 90px rgba(0,0,0,0.06);
-  }
+.letter-paper:hover {
+  transform: rotate(1.4deg) translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.04), 0 24px 56px rgba(0,0,0,0.14), 0 70px 90px rgba(0,0,0,0.06);
 }
 
 /* Crop marks */
@@ -558,7 +568,7 @@ nav > * { pointer-events: auto; }
 }
 .letter-org-address {
   font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 400;
-  color: rgba(245,244,241,0.25); line-height: 1.7; letter-spacing: 0.02em; text-transform: uppercase;
+  color: rgba(245,244,241,0.4); line-height: 1.7; letter-spacing: 0.02em; text-transform: uppercase;
 }
 .letter-head-right { text-align: right; }
 .letter-ref {
@@ -569,7 +579,7 @@ nav > * { pointer-events: auto; }
   display: inline-block; font-family: 'IBM Plex Mono', monospace;
   font-size: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em;
   color: var(--accent-green-light); border: 1px solid var(--accent-green-light);
-  padding: 3px 10px; opacity: 0.35;
+  padding: 3px 10px; opacity: 0.45;
 }
 
 /* Meta fields */
@@ -581,11 +591,11 @@ nav > * { pointer-events: auto; }
 .letter-meta-key {
   font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.08em;
-  color: rgba(245,244,241,0.2); padding: 4px 0;
+  color: rgba(245,244,241,0.35); padding: 4px 0;
 }
 .letter-meta-val {
   font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 400;
-  color: rgba(245,244,241,0.4); padding: 4px 0;
+  color: rgba(245,244,241,0.5); padding: 4px 0;
   border-bottom: 1px dotted rgba(245,244,241,0.06);
 }
 .letter-meta-val strong { color: var(--soft-white); font-weight: 600; }
@@ -593,11 +603,11 @@ nav > * { pointer-events: auto; }
 /* Letter body */
 .letter-salutation {
   font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: 22px; color: rgba(245,244,241,0.6); margin-bottom: 32px;
+  font-size: 22px; color: rgba(245,244,241,0.7); margin-bottom: 32px;
 }
 .letter-body p {
   font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: 19px; line-height: 1.7; color: rgba(245,244,241,0.5);
+  font-size: 19px; line-height: 1.7; color: rgba(245,244,241,0.65);
   margin-bottom: 24px; text-indent: 2em;
 }
 .letter-body p:first-child { text-indent: 0; }
@@ -613,12 +623,13 @@ nav > * { pointer-events: auto; }
 }
 .letter-body .body-highlight-blue { color: var(--accent-blue-light); font-weight: 400; }
 .letter-body .body-highlight-green { color: var(--accent-green-light); font-weight: 400; }
+.mobile-br { display: none; }
 
 .letter-divider { display: flex; align-items: center; gap: 16px; margin: 36px 0; padding: 0 2em; }
 .letter-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(107,143,197,0.15), rgba(137,171,142,0.15)); }
 .letter-divider-mark {
   font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,244,241,0.2);
+  letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,244,241,0.3);
 }
 
 /* Letter closing */
@@ -630,7 +641,7 @@ nav > * { pointer-events: auto; }
 .letter-signoff { display: flex; flex-direction: column; gap: 20px; }
 .letter-signoff-text {
   font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: 18px; color: rgba(245,244,241,0.35);
+  font-size: 18px; color: rgba(245,244,241,0.45);
 }
 .letter-signature { position: relative; height: 52px; width: 180px; }
 .letter-signature svg { height: 100%; width: auto; opacity: 0.7; overflow: visible; }
@@ -640,16 +651,14 @@ nav > * { pointer-events: auto; }
 }
 .letter-signer-title {
   font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 400;
-  color: rgba(245,244,241,0.25); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px;
+  color: rgba(245,244,241,0.4); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px;
 }
 .letter-seal {
   width: 100px; height: 100px; position: relative;
   transform: rotate(6deg); opacity: 0.2;
   transition: opacity 0.4s, transform 0.6s var(--ease-out-expo);
 }
-@media (hover: hover) and (pointer: fine) {
-  .letter-paper:hover .letter-seal { opacity: 0.28; transform: rotate(0deg); }
-}
+.letter-paper:hover .letter-seal { opacity: 0.28; transform: rotate(0deg); }
 .letter-seal svg { width: 100%; height: 100%; }
 .letter-footer-note {
   padding: 16px 72px 20px; border-top: 1px solid rgba(245,244,241,0.04);
@@ -657,7 +666,7 @@ nav > * { pointer-events: auto; }
 }
 .letter-footer-note span {
   font-family: 'IBM Plex Mono', monospace; font-size: 8px; font-weight: 400;
-  text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,244,241,0.15);
+  text-transform: uppercase; letter-spacing: 0.1em; color: rgba(245,244,241,0.25);
 }
 .letter-footer-note .lfn-page { color: var(--accent-blue-light); opacity: 0.25; }
 
@@ -679,12 +688,13 @@ section { position: relative; padding: 140px 40px; }
   border-bottom: 1px solid var(--charcoal); position: relative;
 }
 .section-header .label-mono { color: var(--charcoal); }
-.section-header::after {
-  content: ''; position: absolute; bottom: -1px; left: 0; width: 60px; height: 2px;
+.section-header .section-label { position: relative; }
+.section-header .section-label::after {
+  content: ''; position: absolute; bottom: -17px; left: 0; width: 100%; height: 1px;
 }
-.section-header.accent-blue::after { background: var(--accent-blue); }
-.section-header.accent-green::after { background: var(--accent-green); }
-.section-header.accent-gradient::after { background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); width: 80px; }
+.section-header.accent-blue .section-label::after { background: var(--accent-blue); }
+.section-header.accent-green .section-label::after { background: var(--accent-green); }
+.section-header.accent-gradient .section-label::after { background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); }
 .section-label {
   font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 400;
   text-transform: uppercase; letter-spacing: 0.08em; color: var(--charcoal);
@@ -764,8 +774,8 @@ section { position: relative; padding: 140px 40px; }
 .type-specimen h3 { font-family: 'Archivo', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 4px; }
 .type-specimen-serif { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 28px; margin-top: 16px; margin-bottom: 4px; }
 .type-alphabet { font-family: 'Archivo', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--charcoal); margin-top: 6px; line-height: 1.6; }
-.type-sample { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(42, 42, 40, 0.45); line-height: 1.7; margin-top: 8px; }
-.system-entry { font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 2; color: rgba(42, 42, 40, 0.45); }
+.type-sample { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(42, 42, 40, 0.55); line-height: 1.7; margin-top: 8px; }
+.system-entry { font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 2; color: rgba(42, 42, 40, 0.55); }
 .system-entry strong { color: var(--charcoal); font-weight: 600; }
 .entry-tag { display: inline-block; padding: 2px 8px; font-weight: 500; font-size: 10px; margin-left: 4px; }
 .entry-tag.blue { background: var(--accent-blue-glow); color: var(--accent-blue); }
@@ -773,177 +783,145 @@ section { position: relative; padding: 140px 40px; }
 
 /* ═══════════════════════════════════════════════════
    CAPABILITIES — MANIFEST INDEX
+   ═══════════════════════════════════════════════════
+
+   Open — weighted, hierarchical. Lines are slow and
+   unequal. Content settles while linework still draws.
+
+   1.    0ms  Accent bar drops      1.4s  gravity (expo)
+   2.  100ms  Name color blooms     0.8s  ease
+   3.  200ms  Row indents           0.9s  weighted (quart)
+   4.  250ms  Space opens           1.0s  weighted (quart)
+   5.  400ms  Rule draws across     1.8s  architectural
+   6.  500ms  Text fades + decode   0.8s  ease
+   7.  550ms  Serif nudges          1.0s  weighted (quart)
+   8.  650ms  Tag blooms            0.8s  ease
+
+   Close — measured withdrawal, no delays. Lines linger
+   longest. Text vanishes before space collapses.
    ═══════════════════════════════════════════════════ */
 .manifest {
   border-top: 1px solid var(--grid-line-strong);
   border-bottom: 1px solid var(--grid-line-strong);
 }
 .manifest-row {
-  display: grid; grid-template-columns: 72px 1fr auto;
-  align-items: baseline; padding: 0;
   border-bottom: 1px solid var(--grid-line-strong);
-  position: relative; overflow: visible; cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  position: relative; overflow: hidden; cursor: pointer;
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent;
 }
 .manifest-row:last-child { border-bottom: none; }
 
-/* ── Layer 1: Vertical accent bar — draws down first (slow, architectural) ── */
+/* ── Vertical accent bar — drops like a plumb line ── */
 .manifest-row::before {
   content: ''; position: absolute; top: 0; left: 0;
   width: 2px; height: 0;
-  transition: height 1.3s cubic-bezier(0.08, 0.82, 0.17, 1);
+  transition: height 1.1s ease-in-out;
 }
 .manifest-row.mr-blue::before { background: var(--accent-blue); }
 .manifest-row.mr-green::before { background: var(--accent-green); }
-
-/* ── Layer 2: Top hairline — draws across from left (delayed) ── */
-.manifest-row::after {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 1px; transform: scaleX(0); transform-origin: left;
-  opacity: 0.08;
-  transition: transform 1s cubic-bezier(0.08, 0.82, 0.17, 1) 0.15s;
+.manifest-row.is-open::before {
+  height: 100%;
+  transition: height 1.4s var(--ease-out-expo);
 }
-.manifest-row.mr-blue::after { background: var(--accent-blue); }
-.manifest-row.mr-green::after { background: var(--accent-green); }
 
-/* Main row layout */
+/* ── Row indent — weighted lateral shift ── */
 .manifest-row-main {
   display: grid; grid-template-columns: 72px 1fr auto;
   align-items: baseline; padding: 28px 0; width: 100%;
-  grid-column: 1 / -1;
-  transition: padding-left 0.9s cubic-bezier(0.08, 0.82, 0.17, 1) 0.1s;
   position: relative;
+  transition: padding-left 0.7s ease;
+}
+.manifest-row.is-open .manifest-row-main {
+  padding-left: 8px;
+  transition: padding-left 0.9s var(--ease-out-quart) 0.2s;
 }
 
-/* ── Layer 3: Bottom accent line — draws across (mid-sequence) ── */
+/* ── Horizontal rule — pen drawn across paper ── */
 .manifest-row-main::after {
   content: ''; position: absolute; bottom: 0; left: 72px; right: 0;
-  height: 1px; transform: scaleX(0); transform-origin: left; will-change: transform;
-  transition: transform 1.1s cubic-bezier(0.08, 0.82, 0.17, 1) 0.3s;
+  height: 1px; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.9s ease-in-out;
 }
-.manifest-row.mr-blue .manifest-row-main::after { background: var(--accent-blue); opacity: 0.4; }
-.manifest-row.mr-green .manifest-row-main::after { background: var(--accent-green); opacity: 0.4; }
-
-/* ── Layer 4: Right-side vertical tick — draws down from top ── */
-.manifest-row-main::before {
-  content: ''; position: absolute; top: 0; right: 0;
-  width: 1px; height: 0;
-  opacity: 0.06;
-  transition: height 1s cubic-bezier(0.08, 0.82, 0.17, 1) 0.25s;
+.manifest-row.mr-blue .manifest-row-main::after { background: var(--accent-blue); opacity: 0.3; }
+.manifest-row.mr-green .manifest-row-main::after { background: var(--accent-green); opacity: 0.3; }
+.manifest-row.is-open .manifest-row-main::after {
+  transform: scaleX(1);
+  transition: transform 1.8s cubic-bezier(0.08, 0.82, 0.17, 1) 0.4s;
 }
-.manifest-row.mr-blue .manifest-row-main::before { background: var(--accent-blue); }
-.manifest-row.mr-green .manifest-row-main::before { background: var(--accent-green); }
 
 .manifest-num {
   font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500;
-  letter-spacing: 0.02em; position: relative;
-  transition: color 0.5s ease 0.15s, transform 0.6s var(--ease-out-quart) 0.1s;
+  letter-spacing: 0.02em;
 }
 .manifest-num.blue { color: var(--accent-blue); }
 .manifest-num.green { color: var(--accent-green); }
 
-/* ── Layer 5: Small cross mark after number — fades in ── */
-.manifest-num::after {
-  content: '+'; position: absolute; right: -14px; top: 50%; transform: translateY(-50%);
-  font-size: 8px; opacity: 0;
-  transition: opacity 0.6s ease 0.4s;
-}
-.manifest-row.mr-blue .manifest-num::after { color: var(--accent-blue); }
-.manifest-row.mr-green .manifest-num::after { color: var(--accent-green); }
-
+/* ── Name color — slow bloom ── */
 .manifest-name {
   font-family: 'Archivo', sans-serif; font-size: 22px; font-weight: 700;
   letter-spacing: -0.025em; color: var(--charcoal);
   display: flex; align-items: baseline; gap: 12px;
-  transition: color 0.6s ease 0.2s;
+  transition: color 0.7s ease;
 }
+.manifest-row.is-open .manifest-name {
+  transition: color 0.8s ease 0.1s;
+}
+.manifest-row.is-open.mr-blue .manifest-name { color: var(--accent-blue); }
+.manifest-row.is-open.mr-green .manifest-name { color: var(--accent-green); }
 
+/* ── Serif subtitle — gentle drift ── */
 .manifest-name .mn-serif {
   font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
   font-size: 18px; opacity: 0.4; transform: translateX(0);
-  transition: opacity 0.7s ease 0.3s, transform 0.7s cubic-bezier(0.08, 0.82, 0.17, 1) 0.3s;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 .manifest-row.mr-blue .mn-serif { color: var(--accent-blue); }
 .manifest-row.mr-green .mn-serif { color: var(--accent-green); }
+.manifest-row.is-open .mn-serif {
+  opacity: 0.8; transform: translateX(6px);
+  transition: opacity 1s ease 0.55s, transform 1s var(--ease-out-quart) 0.55s;
+}
 
+/* ── Tag pill — last to arrive ── */
 .manifest-tag {
   font-family: 'IBM Plex Mono', monospace; font-size: 9px; font-weight: 500;
   text-transform: uppercase; letter-spacing: 0.08em;
   padding: 4px 12px; border: 1px solid var(--grid-line-strong);
-  color: rgba(42,42,40,0.35); white-space: nowrap;
-  transition: border-color 0.6s ease 0.45s, color 0.6s ease 0.45s, background 0.6s ease 0.45s;
+  color: rgba(42,42,40,0.45); white-space: nowrap;
+  transition: border-color 0.6s ease, color 0.6s ease, background 0.6s ease;
+}
+.manifest-row.is-open .manifest-tag {
+  transition: border-color 0.8s ease 0.65s, color 0.8s ease 0.65s, background 0.8s ease 0.65s;
+}
+.manifest-row.is-open.mr-blue .manifest-tag {
+  border-color: var(--accent-blue); color: var(--accent-blue); background: var(--accent-blue-glow);
+}
+.manifest-row.is-open.mr-green .manifest-tag {
+  border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-glow);
 }
 
-/* ── Description — expands later in sequence ── */
+/* ── Space opens — heavy drawer ── */
 .manifest-desc {
-  grid-column: 1 / -1; max-height: 0; overflow: hidden;
-  transition: max-height 0.4s ease-out, padding 0.4s ease-out;
-  padding: 0 0 0 72px; position: relative;
+  max-height: 0; overflow: hidden;
+  padding: 0 0 0 72px;
+  transition: max-height 0.7s ease, padding 0.7s ease;
+}
+.manifest-row.is-open .manifest-desc {
+  max-height: 200px; padding: 0 0 28px 72px;
+  transition: max-height 1s var(--ease-out-quart) 0.25s,
+              padding 1s var(--ease-out-quart) 0.25s;
 }
 
-/* ── Layer 6: First decoration line in desc ── */
-.manifest-desc::before {
-  content: ''; position: absolute; top: 0; left: 80px;
-  width: 80px; height: 1px; opacity: 0.18;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.9s cubic-bezier(0.08, 0.82, 0.17, 1) 0.55s;
-}
-.manifest-row.mr-blue .manifest-desc::before { background: var(--accent-blue); }
-.manifest-row.mr-green .manifest-desc::before { background: var(--accent-green); }
-
-/* ── Layer 7: Second decoration line — shorter, offset ── */
-.manifest-desc::after {
-  content: ''; position: absolute; top: 8px; left: 80px;
-  width: 40px; height: 1px; opacity: 0.08;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.7s cubic-bezier(0.08, 0.82, 0.17, 1) 0.7s;
-}
-.manifest-row.mr-blue .manifest-desc::after { background: var(--accent-blue); }
-.manifest-row.mr-green .manifest-desc::after { background: var(--accent-green); }
-
+/* ── Description text — fades as scramble decodes ── */
 .manifest-desc-inner {
   font-family: 'IBM Plex Mono', monospace; font-size: 12px;
-  line-height: 1.75; color: rgba(42,42,40,0.4); max-width: 540px; padding-top: 20px;
+  line-height: 1.75; color: rgba(42,42,40,0.5); max-width: 540px; padding-top: 12px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.45s ease;
 }
-
-/* ── Layer 8: Third decoration line via desc-inner ── */
-.manifest-desc-inner::after {
-  content: ''; display: block; margin-top: 12px;
-  width: 24px; height: 1px; opacity: 0;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.6s cubic-bezier(0.08, 0.82, 0.17, 1) 0.9s,
-              opacity 0.4s ease 0.85s;
-}
-.manifest-row.mr-blue .manifest-desc-inner::after { background: var(--accent-blue); }
-.manifest-row.mr-green .manifest-desc-inner::after { background: var(--accent-green); }
-
-/* ═══════════════════════════════════════════════════
-   HOVER EFFECTS — Only on devices with mouse/trackpad
-   ═══════════════════════════════════════════════════ */
-@media (hover: hover) and (pointer: fine) {
-  .manifest-row:hover::before { height: 100%; }
-  .manifest-row:hover::after { transform: scaleX(1); }
-  .manifest-row:hover .manifest-row-main::after { transform: scaleX(1); }
-  .manifest-row:hover .manifest-row-main { padding-left: 8px; }
-  .manifest-row:hover .manifest-row-main::before { height: 100%; }
-  .manifest-row:hover .manifest-num::after { opacity: 0.3; }
-  .manifest-row.mr-blue:hover .manifest-name { color: var(--accent-blue); }
-  .manifest-row.mr-green:hover .manifest-name { color: var(--accent-green); }
-  .manifest-row.mr-blue:hover .mn-serif,
-  .manifest-row.mr-green:hover .mn-serif { opacity: 0.8; transform: translateX(6px); }
-  .manifest-row.mr-blue:hover .manifest-tag {
-    border-color: var(--accent-blue); color: var(--accent-blue); background: var(--accent-blue-glow);
-  }
-  .manifest-row.mr-green:hover .manifest-tag {
-    border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-glow);
-  }
-  .manifest-row:hover .manifest-desc { max-height: 120px; padding: 0 0 32px 80px; }
-  .manifest-row:hover .manifest-desc::before { transform: scaleX(1); }
-  .manifest-row:hover .manifest-desc::after { transform: scaleX(1); }
-  .manifest-row:hover .manifest-desc-inner { opacity: 1; }
-  .manifest-row:hover .manifest-desc-inner::after { transform: scaleX(1); opacity: 0.25; }
+.manifest-row.is-open .manifest-desc-inner {
+  opacity: 1;
+  transition: opacity 0.8s ease 0.5s;
 }
 
 .manifest-connector {
@@ -952,14 +930,12 @@ section { position: relative; padding: 140px 40px; }
   opacity: 0.5;
 }
 
-/* Stagger reveal for manifest rows */
+/* Stagger reveal */
 .manifest-stagger .manifest-row {
   opacity: 0; transform: translateY(16px);
   transition: opacity 0.5s ease, transform 0.5s var(--ease-out-expo);
 }
-.manifest-stagger.in-view .manifest-row {
-  opacity: 1; transform: translateY(0);
-}
+.manifest-stagger.in-view .manifest-row { opacity: 1; transform: translateY(0); }
 .manifest-stagger.in-view .manifest-row:nth-child(1) { transition-delay: 0s; }
 .manifest-stagger.in-view .manifest-row:nth-child(2) { transition-delay: 0.04s; }
 .manifest-stagger.in-view .manifest-row:nth-child(3) { transition-delay: 0.08s; }
@@ -969,31 +945,6 @@ section { position: relative; padding: 140px 40px; }
 .manifest-stagger.in-view .manifest-row:nth-child(7) { transition-delay: 0.24s; }
 .manifest-stagger.in-view .manifest-row:nth-child(8) { transition-delay: 0.28s; }
 .manifest-stagger.in-view .manifest-row:nth-child(9) { transition-delay: 0.32s; }
-
-/* ═══════════════════════════════════════════════════
-   TOUCH-ACTIVE STATES — Works on all screen sizes
-   Mirrors hover effects for touch devices
-   ═══════════════════════════════════════════════════ */
-.manifest-row.touch-active::before { height: 100%; }
-.manifest-row.touch-active::after { transform: scaleX(1); }
-.manifest-row.touch-active .manifest-row-main { padding-left: 8px; }
-.manifest-row.touch-active .manifest-row-main::after { transform: scaleX(1); }
-.manifest-row.touch-active .manifest-row-main::before { height: 100%; }
-.manifest-row.touch-active .manifest-num::after { opacity: 0.3; }
-.manifest-row.touch-active.mr-blue .manifest-name { color: var(--accent-blue); }
-.manifest-row.touch-active.mr-green .manifest-name { color: var(--accent-green); }
-.manifest-row.touch-active .mn-serif { opacity: 0.8; transform: translateX(6px); }
-.manifest-row.touch-active.mr-blue .manifest-tag {
-  border-color: var(--accent-blue); color: var(--accent-blue); background: var(--accent-blue-glow);
-}
-.manifest-row.touch-active.mr-green .manifest-tag {
-  border-color: var(--accent-green); color: var(--accent-green); background: var(--accent-green-glow);
-}
-.manifest-row.touch-active .manifest-desc { max-height: 120px; padding: 0 0 32px 80px; }
-.manifest-row.touch-active .manifest-desc::before { transform: scaleX(1); }
-.manifest-row.touch-active .manifest-desc::after { transform: scaleX(1); }
-.manifest-row.touch-active .manifest-desc-inner { opacity: 1; }
-.manifest-row.touch-active .manifest-desc-inner::after { transform: scaleX(1); opacity: 0.25; }
 
 /* ═══════════════════════════════════════════════════
    PROJECTS
@@ -1011,10 +962,10 @@ section { position: relative; padding: 140px 40px; }
 .project-card:hover .project-inner { transform: scale(1.08); }
 .project-inner-text {
   font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 500;
-  letter-spacing: 0.06em; text-transform: uppercase; color: rgba(245, 244, 241, 0.25);
+  letter-spacing: 0.06em; text-transform: uppercase; color: rgba(245, 244, 241, 0.35);
 }
 .proj-fill-1 { background: linear-gradient(135deg, var(--warm-gray), #C5C2BD); }
-.proj-fill-1 .project-inner-text { color: rgba(42,42,40,0.15); }
+.proj-fill-1 .project-inner-text { color: rgba(42,42,40,0.25); }
 .proj-fill-2 { background: linear-gradient(135deg, var(--accent-blue), #3A5B8C); }
 .proj-fill-3 { background: linear-gradient(135deg, var(--accent-green), #4A7050); }
 .proj-fill-4 { background: linear-gradient(135deg, #3A3A38, var(--charcoal)); }
@@ -1057,7 +1008,7 @@ section { position: relative; padding: 140px 40px; }
 .location-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: start; }
 .location-text {
   font-family: 'Archivo', sans-serif; font-size: clamp(28px, 3.5vw, 52px);
-  font-weight: 400; line-height: 1.35; letter-spacing: -0.02em; color: rgba(42, 42, 40, 0.65);
+  font-weight: 400; line-height: 1.35; letter-spacing: -0.02em; color: rgba(42, 42, 40, 0.72);
 }
 .location-text strong { font-weight: 800; color: var(--charcoal); }
 .location-text .serif-interrupt.green { color: var(--accent-green); font-size: 1.06em; }
@@ -1071,7 +1022,7 @@ section { position: relative; padding: 140px 40px; }
 .detail-row:hover { padding-left: 8px; }
 .detail-row:nth-child(odd):hover { border-bottom-color: var(--accent-blue-glow); }
 .detail-row:nth-child(even):hover { border-bottom-color: var(--accent-green-glow); }
-.detail-key { color: rgba(42, 42, 40, 0.35); text-transform: uppercase; letter-spacing: 0.06em; }
+.detail-key { color: rgba(42, 42, 40, 0.45); text-transform: uppercase; letter-spacing: 0.06em; }
 .detail-val { color: var(--charcoal); font-weight: 500; }
 .detail-val a { color: var(--accent-green); text-decoration: none; position: relative; }
 .detail-val a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 1px; background: var(--accent-green); opacity: 0.3; }
@@ -1129,8 +1080,8 @@ section { position: relative; padding: 140px 40px; }
    ═══════════════════════════════════════════════════ */
 footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; }
-.footer-left { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(42, 42, 40, 0.35); line-height: 1.8; }
-.footer-center { text-align: center; }
+.footer-left { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: rgba(42, 42, 40, 0.45); line-height: 1.8; }
+.footer-center { text-align: center; align-self: start; }
 .footer-logo-mark { width: 32px; height: 32px; margin: 0 auto 12px; }
 .footer-logo-mark svg { width: 100%; height: 100%; }
 .footer-name { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; color: #F08A0F; margin-bottom: 4px; }
@@ -1143,7 +1094,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 .footer-links { display: flex; gap: 20px; justify-content: flex-end; }
 .footer-links a {
   font-family: 'IBM Plex Mono', monospace; font-size: 11px;
-  color: rgba(42, 42, 40, 0.35); text-decoration: none;
+  color: rgba(42, 42, 40, 0.45); text-decoration: none;
   text-transform: uppercase; letter-spacing: 0.04em; transition: color 0.3s;
 }
 .footer-links a:nth-child(odd):hover { color: var(--accent-blue); }
@@ -1199,7 +1150,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
     right: 16px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 9px;
-    color: rgba(42, 42, 40, 0.25);
+    color: rgba(42, 42, 40, 0.35);
     transform: translateY(-50%);
     transition: color 0.3s;
 }
@@ -1225,7 +1176,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   background: var(--charcoal);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1.2s cubic-bezier(0.08, 0.82, 0.17, 1);
+  transition: transform 2.4s cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .section-header-line.in-view::before {
   transform: scaleX(1);
@@ -1242,7 +1193,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   height: 1px;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1s cubic-bezier(0.08, 0.82, 0.17, 1);
+  transition: transform 2s cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .line-reveal.line-h { }
 .line-reveal.line-h::after {
@@ -1270,7 +1221,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   width: 1px;
   top: 0;
   height: 0;
-  transition: height 1.4s cubic-bezier(0.08, 0.82, 0.17, 1);
+  transition: height 2.8s cubic-bezier(0.08, 0.82, 0.17, 1);
 }
 .vline-reveal.vline-left::before { left: 0; }
 .vline-reveal.vline-right::before { right: 0; }
@@ -1351,6 +1302,30 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 /* ═══════════════════════════════════════════════════
    RESPONSIVE — TABLET
    ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════
+   DESKTOP LEGIBILITY BOOST
+   ═══════════════════════════════════════════════════ */
+@media (min-width: 769px) {
+  .label-mono { color: rgba(42, 42, 40, 0.62); }
+  .hero-footnote { color: rgba(42, 42, 40, 0.72); }
+  .hero-sub { color: rgba(42, 42, 40, 0.68); }
+  .manifest-desc-inner { color: rgba(42, 42, 40, 0.58); }
+  .manifest-tag { color: rgba(42, 42, 40, 0.52); }
+  .location-text { color: rgba(42, 42, 40, 0.78); }
+  .detail-key { color: rgba(42, 42, 40, 0.52); }
+  .type-sample, .system-entry { color: rgba(42, 42, 40, 0.62); }
+  .footer-left { color: rgba(42, 42, 40, 0.52); }
+  .footer-links a { color: rgba(42, 42, 40, 0.52); }
+  .letter-org-address { color: rgba(245,244,241,0.48); }
+  .letter-meta-key { color: rgba(245,244,241,0.42); }
+  .letter-meta-val { color: rgba(245,244,241,0.58); }
+  .letter-salutation { color: rgba(245,244,241,0.78); }
+  .letter-body p { color: rgba(245,244,241,0.72); }
+  .letter-signoff-text { color: rgba(245,244,241,0.52); }
+  .letter-signer-title { color: rgba(245,244,241,0.48); }
+  .letter-footer-note span { color: rgba(245,244,241,0.32); }
+}
+
 @media (max-width: 1024px) {
   .hero-footnotes { position: static; flex-direction: row; gap: 20px; margin-top: 28px; flex-wrap: wrap; }
   .hero-vline, .hero-illustration { display: none; }
@@ -1370,46 +1345,39 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
    RESPONSIVE — MOBILE
    ═══════════════════════════════════════════════════ */
 @media (max-width: 768px) {
+  .mobile-br { display: block; }
   nav { padding: 24px 28px; }
   section { padding: 100px 20px; }
   .hero { padding: 80px 20px 60px; }
-  .hero h1 { font-size: clamp(48px, 12vw, 80px); }
+  .hero h1 { font-size: clamp(64px, 18vw, 120px); }
   .manifest-row-main { grid-template-columns: 48px 1fr; gap: 0; }
   .manifest-tag { display: none; }
   .manifest-name { font-size: 18px; }
   .manifest-connector { left: 40px; }
-  /* Tap-to-expand for manifest rows on touch */
-  .manifest-row.touch-active::before { height: 100%; }
-  .manifest-row.touch-active::after { transform: scaleX(1); }
-  .manifest-row.touch-active .manifest-row-main { padding-left: 8px; }
-  .manifest-row.touch-active .manifest-row-main::after { transform: scaleX(1); }
-  .manifest-row.touch-active .manifest-row-main::before { height: 100%; }
-  .manifest-row.touch-active .manifest-desc { max-height: 200px; padding: 0 0 28px 48px; }
-  .manifest-row.touch-active .manifest-desc::before { transform: scaleX(1); left: 48px; }
-  .manifest-row.touch-active .manifest-desc::after { transform: scaleX(1); left: 48px; }
-  .manifest-row.touch-active .manifest-desc-inner { opacity: 1; padding-top: 16px; }
-  .manifest-row.touch-active .manifest-desc-inner::after { transform: scaleX(1); opacity: 0.25; }
-  .manifest-row.touch-active .manifest-num::after { opacity: 0.3; }
-  .manifest-row.touch-active.mr-blue .manifest-name { color: var(--accent-blue); }
-  .manifest-row.touch-active.mr-green .manifest-name { color: var(--accent-green); }
-  .manifest-row.touch-active.mr-blue .manifest-tag { border-color: var(--accent-blue); color: var(--accent-blue); }
-  .manifest-row.touch-active.mr-green .manifest-tag { border-color: var(--accent-green); color: var(--accent-green); }
-  .manifest-row.touch-active .mn-serif { opacity: 0.8; transform: translateX(6px); }
+  .manifest-row-main::after { left: 48px; }
+  .manifest-row.is-open .manifest-desc { padding: 0 0 24px 48px; }
   .projects-grid { grid-template-columns: repeat(2, 1fr); }
   .footer-inner { grid-template-columns: 1fr; gap: 20px; text-align: center; }
   .footer-right { text-align: center; }
   .footer-links { justify-content: center; }
   .cta-section { padding: 120px 20px; }
   .system-panel { padding: 48px 20px; }
-  .margin-note, .corner-mark, .visual-index { display: none; }
-  .letter-section { padding: 80px 20px 120px; }
-  .letter-inner { padding: 36px 28px 32px; }
-  .letter-footer-note { padding: 12px 28px 16px; }
-  .letter-paper { transform: rotate(0.8deg); }
-  .letter-head { flex-direction: column; gap: 20px; }
-  .letter-head-right { text-align: left; }
-  .letter-closing { flex-direction: row; gap: 20px; align-items: flex-start; justify-content: space-between; }
-  .letter-seal { margin-top: -40px; }
+  .margin-note, .corner-mark, .visual-index, .letter-side-note { display: none; }
+  .letter-section { padding: 100px 0 100px; }
+  .letter-section .section-header { margin: 0 20px 64px; }
+  .letter-paper-wrap { max-width: 100%; display: flex; flex-direction: column; }
+  .letter-float-annotation { position: static; display: block; padding: 0 20px; margin: 8px 0; }
+  .letter-float-annotation.lfa-top { order: 1; }
+  .letter-float-annotation.lfa-bottom-right { text-align: right; order: 10; }
+  .letter-paper { order: 2; }
+  .letter-paper { transform: none; box-shadow: none; }
+  .letter-paper:hover { transform: none; box-shadow: none; }
+  .letter-inner { padding: 36px 20px 32px; }
+  .letter-footer-note { padding: 12px 20px 16px; }
+  .letter-head { flex-direction: row; gap: 12px; }
+  .letter-head-right { text-align: right; flex-shrink: 0; }
+  .letter-closing { flex-direction: row; align-items: flex-start; }
+  .letter-seal { margin-left: auto; }
   .paper-crop { display: none; }
   .letter-body p { font-size: 17px; }
   .letter-body p:first-child::first-letter { font-size: 40px; }
@@ -1419,6 +1387,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 <body class="no-js">
 
 <div class="grid-bg"></div>
+
 
 <div class="scroll-ruler">
     <div class="ruler-track"></div>
@@ -1455,14 +1424,14 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
       <h1>
         <span class="word">We<sup class="sup-blue">1</sup></span><br>
         <span class="word">build<sup class="sup-green">2</sup></span><br>
-        <span class="word"><span class="hero-brands-word" id="brandsWord"><span class="brands-sans">brands.</span><span class="brands-serif brands-blue">systems.</span><span class="brands-serif brands-green">conversion.</span></span><sup class="sup-blue sup-third">3</sup></span>
+        <span class="word"><span class="hero-brands-word" id="brandsWord"><span class="brands-sans">brands.</span><span class="brands-serif brands-blue">systems.</span><span class="brands-serif brands-green">conversion.</span></span><sup class="sup-blue" style="margin-left: -8px;">3</sup></span>
       </h1>
       <div class="hero-footnotes">
         <span class="hero-footnote"><span class="fn-num blue">1</span><span class="fn-line blue"></span> together</span>
         <span class="hero-footnote"><span class="fn-num green">2</span><span class="fn-line green"></span> from scratch</span>
         <span class="hero-footnote"><span class="fn-num blue">3</span><span class="fn-line blue"></span> that last.</span>
       </div>
-      <p class="hero-sub">Full-stack brand building. Strategy, identity, product, web, photography — everything. Los Angeles.</p>
+      <p class="hero-sub">We build what founders need. Brand, web, AI, product, fulfillment. All in-house, so you can focus on the thing only you can do. Los Angeles.</p>
       <div class="hero-vline vl-blue"><div class="hero-vline-inner"></div><span class="hero-vline-label">Visual System Index</span></div>
       <div class="hero-vline vl-green"><div class="hero-vline-inner"></div></div>
       <div class="hero-illustration">
@@ -1491,6 +1460,14 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- SERVICES TICKER -->
   <div class="services-bar">
     <div class="services-track">
+      <div class="service-item"><span class="service-num blue">01</span><span class="service-name">Strategy</span></div>
+      <div class="service-item green-hover"><span class="service-num green">02</span><span class="service-name serif-interrupt green">Web</span></div>
+      <div class="service-item"><span class="service-num blue">03</span><span class="service-name">AI</span></div>
+      <div class="service-item green-hover"><span class="service-num green">04</span><span class="service-name serif-interrupt blue">Identity</span></div>
+      <div class="service-item"><span class="service-num blue">05</span><span class="service-name">Photography</span></div>
+      <div class="service-item green-hover"><span class="service-num green">06</span><span class="service-name serif-interrupt green">Motion</span></div>
+      <div class="service-item"><span class="service-num blue">07</span><span class="service-name">Product</span></div>
+      <div class="service-item green-hover"><span class="service-num green">08</span><span class="service-name serif-interrupt blue">Fulfillment</span></div>
       <div class="service-item"><span class="service-num blue">01</span><span class="service-name">Strategy</span></div>
       <div class="service-item green-hover"><span class="service-num green">02</span><span class="service-name serif-interrupt green">Web</span></div>
       <div class="service-item"><span class="service-num blue">03</span><span class="service-name">AI</span></div>
@@ -1541,7 +1518,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
       <div class="paper-crop pc-br pc-blue"></div>
 
       <div class="letter-paper">
-        <div class="paper-fold"></div>
+
         <div class="letter-inner">
           <div class="letter-head">
             <div class="letter-head-left">
@@ -1587,7 +1564,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
               <span class="letter-divider-mark">§</span>
               <span class="letter-divider-line"></span>
             </div>
-            <p>The kind of projects that makes people stop and ask, <span class="body-highlight-green">who did this?</span></p>
+            <p>The kind of projects that makes people stop and ask, <span class="mobile-br"></span><span class="body-highlight-green">who did this?</span></p>
           </div>
 
           <div class="letter-closing">
@@ -1608,7 +1585,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
                 </svg>
               </div>
               <div class="letter-signer">the wingman project</div>
-              <div class="letter-signer-title">Everything has a place.</div>
+              <div class="letter-signer-title">So you can fly.</div>
             </div>
             <div class="letter-seal">
               <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -1627,7 +1604,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
                 <text font-family="'IBM Plex Mono', monospace" font-size="4.5" fill="var(--accent-blue-light)" text-anchor="middle" letter-spacing="0.5">
                   <textPath href="#sealCircle" startOffset="50%">THE WINGMAN PROJECT — LOS ANGELES — EST. 2024 —</textPath>
                 </text>
-                <path id="sealCircle" d="M50 11 a39 39 0 0 1 0 78 a39 39 0 0 1 0 -78" fill="none" />
+                <path id="sealCircle" d="M50 13 a37 37 0 0 1 0 74 a37 37 0 0 1 0 -74" fill="none" />
               </svg>
             </div>
           </div>
@@ -1635,7 +1612,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
         <div class="letter-footer-note">
           <span>TWP — Confidential Correspondence — <span id="footerYear">2024</span></span>
           <span class="lfn-page">1 / 1</span>
-          <span>Everything has a place.</span>
+          <span>So you can fly.</span>
         </div>
       </div>
     </div>
@@ -1643,14 +1620,18 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 
   <!-- CAPABILITIES -->
   <section id="capabilities">
+    <!-- Decorative elements -->
+    <div class="deco-cross dc-blue" style="top: 140px; left: 5%;"></div>
+    <div class="deco-cross dc-green" style="bottom: 200px; right: 12%;"></div>
+    <div class="deco-coord dc-blue" style="top: 40px; left: 40px;">x: 001</div>
     <div class="section-frame">
       <div class="section-header accent-blue section-header-line">
         <span class="section-label">Capabilities</span>
         <span class="dotted-h"></span>
         <span class="label-mono">Entry 001</span>
       </div>
-      <h2 class="section-title" data-reveal="up">Everything.<br><span class="serif-interrupt green accent-underline gradient">Literally.</span><sup class="index-num green">2</sup></h2>
-      <p data-reveal="up" style="--d:100; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(42,42,40,0.45); max-width: 500px; line-height: 1.8; margin-bottom: 56px;">Not an agency with contractors. Every discipline in-house. One team. One vision. One outcome.</p>
+      <h2 class="section-title" data-reveal="up">Everything.<br><span class="serif-interrupt green accent-underline gradient">One call away.</span><sup class="index-num green">2</sup></h2>
+      <p data-reveal="up" style="--d:100; font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: rgba(42,42,40,0.55); max-width: 500px; line-height: 1.8; margin-bottom: 56px;">Not an agency with contractors. Every discipline in-house. One team. One vision. One outcome.</p>
 
       <div class="manifest manifest-stagger">
         <div class="manifest-connector"></div>
@@ -1668,7 +1649,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
             <span class="manifest-name">Web & Digital <span class="mn-serif">— built to convert</span></span>
             <span class="manifest-tag">Engineering</span>
           </div>
-          <div class="manifest-desc"><div class="manifest-desc-inner">E-commerce, marketing sites, landing pages, apps. Digital experiences engineered to perform and designed to remember.</div></div>
+          <div class="manifest-desc"><div class="manifest-desc-inner">E-commerce, marketing sites, landing pages, apps. Digital experiences engineered to perform and designed to be remembered.</div></div>
         </div>
         <div class="manifest-row mr-blue">
           <div class="manifest-row-main">
@@ -1713,7 +1694,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
         <div class="manifest-row mr-green">
           <div class="manifest-row-main">
             <span class="manifest-num green">008</span>
-            <span class="manifest-name">Fulfillment & Logistics <span class="mn-serif">— from our hands to theirs</span></span>
+            <span class="manifest-name">Fulfillment <span class="mn-serif">— from our hands to theirs</span></span>
             <span class="manifest-tag">Operations</span>
           </div>
           <div class="manifest-desc"><div class="manifest-desc-inner">Pick, pack, ship — from our warehouse in Los Angeles. Storage, kitting, assembly, and order fulfillment handled under one roof.</div></div>
@@ -1725,6 +1706,9 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 
   <!-- PROJECTS -->
   <section id="work">
+    <!-- Decorative elements -->
+    <div class="deco-cross dc-green" style="top: 80px; left: 4%;"></div>
+    <div class="deco-coord dc-green" style="top: 40px; right: 40px;">z: 002</div>
     <div class="section-frame">
       <div class="section-header accent-green section-header-line">
         <span class="section-label">Selected Work</span>
@@ -1742,6 +1726,9 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 
   <!-- LOCATION -->
   <section class="location-section">
+    <!-- Decorative elements -->
+    <div class="deco-cross dc-green" style="top: 100px; right: 8%;"></div>
+    <div class="deco-coord dc-green" style="bottom: 40px; right: 40px;">y: 003</div>
     <div class="section-frame">
       <div class="section-header accent-gradient section-header-line">
         <span class="section-label">Los Angeles</span>
@@ -1782,7 +1769,7 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
-      <div class="footer-left">© 2026 <span style="font-family:'Space Grotesk',sans-serif; color:#F08A0F; font-weight:600;">the wingman project</span><br>Los Angeles, California</div>
+      <div class="footer-left">The Wingman Project is a program of Wingman Labs, Inc.<br>© 2026 Wingman Labs, Inc. All rights reserved.</div>
       <div class="footer-center">
         <div class="footer-logo-mark">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
@@ -1795,9 +1782,9 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
           </svg>
         </div>
         <div class="footer-name">the wingman project<sup style="font-size:8px; color: var(--accent-green);">1</sup></div>
-        <div class="footer-tagline">Everything has a place.</div>
+        <div class="footer-tagline">So you can fly.</div>
       </div>
-      <div class="footer-right"><div class="footer-links"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">Twitter</a></div></div>
+      <div class="footer-right"><div class="footer-links"><a href="#">LinkedIn</a></div><div class="footer-links" style="margin-top: 10px;"><a href="#">Privacy Policy</a><a href="#">Terms</a></div></div>
     </div>
   </footer>
 
@@ -1868,14 +1855,26 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
 
   revealElements.forEach(el => {
     // Headers and lines trigger earlier for that architectural "drawing in" feel
-    if (el.classList.contains('section-header-line') || 
-        el.classList.contains('line-reveal') || 
+    if (el.classList.contains('section-header-line') ||
+        el.classList.contains('line-reveal') ||
         el.classList.contains('vline-reveal')) {
       earlyObserver.observe(el);
     } else {
       observer.observe(el);
     }
   });
+
+  // Elements already in viewport on load — delay so the draw is visible
+  setTimeout(() => {
+    revealElements.forEach(el => {
+      if (el.classList.contains('in-view')) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add('in-view');
+        observerFired = true;
+      }
+    });
+  }, 800);
 
   // Fallback: if observer hasn't fired after 2s (sandboxed iframe), force all visible
   setTimeout(() => {
@@ -1933,39 +1932,51 @@ footer { border-top: 1px solid var(--grid-line-strong); padding: 48px 40px; }
     }
   }
 
-  // ═══════════════════════════════════════════════════
-  // MANIFEST ROW INTERACTIONS - SIMPLE VERSION
-  // ═══════════════════════════════════════════════════
-  
+  // Manifest rows — desktop: hover, mobile: tap
+  // Scramble synced to movement 6 (500ms) so text decodes as it fades in
+  const canHover = window.matchMedia('(hover: hover)').matches;
+
+  function closeAllRows() {
+    document.querySelectorAll('.manifest-row.is-open').forEach(r => {
+      r.classList.remove('is-open');
+      const s = r.querySelector('.manifest-desc-inner');
+      if (s && s._scrambler) s._scrambler.reset();
+    });
+  }
+
   document.querySelectorAll('.manifest-row').forEach(row => {
     const descInner = row.querySelector('.manifest-desc-inner');
     if (!descInner) return;
     const scrambler = new TextScramble(descInner);
+    descInner._scrambler = scrambler;
 
-    // Simple tap/click to toggle
-    row.addEventListener('click', () => {
-      const isActive = row.classList.contains('touch-active');
-      
-      // Close all rows
-      document.querySelectorAll('.manifest-row.touch-active').forEach(r => {
-        r.classList.remove('touch-active');
+    if (canHover) {
+      let scrambleTimer = null;
+      row.addEventListener('mouseenter', () => {
+        row.classList.add('is-open');
+        scrambleTimer = setTimeout(() => scrambler.scramble(), 500);
       });
-      
-      // Open this one if it wasn't active
-      if (!isActive) {
-        row.classList.add('touch-active');
-        scrambler.scramble();
-      } else {
+      row.addEventListener('mouseleave', () => {
+        row.classList.remove('is-open');
+        if (scrambleTimer) clearTimeout(scrambleTimer);
         scrambler.reset();
-      }
-    });
-
-    // Desktop hover - just scramble text (CSS handles expansion)
-    row.addEventListener('mouseenter', () => scrambler.scramble());
-    row.addEventListener('mouseleave', () => {
-      if (!row.classList.contains('touch-active')) scrambler.reset();
-    });
+      });
+    } else {
+      row.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wasOpen = row.classList.contains('is-open');
+        closeAllRows();
+        if (!wasOpen) {
+          row.classList.add('is-open');
+          setTimeout(() => scrambler.scramble(), 500);
+        }
+      });
+    }
   });
+
+  if (!canHover) {
+    document.addEventListener('click', closeAllRows);
+  }
 
   // ═══════════════════════════════════════════════════
   // SCROLL RULER — progress tracker
